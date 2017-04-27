@@ -12,9 +12,9 @@ services:
         - redis_slave
         - sentinel
 #      environment:
-      working_dir: /var/www/service
-      volumes:
-        - ./:/var/www/service
+#      working_dir: /var/www/service
+#      volumes:
+#        - ./:/var/www/service
     nginx:
       image: nginx:alpine
       depends_on:
