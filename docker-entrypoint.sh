@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-chown -R www-data:www-data /var/www/service/storage /var/www/service/bootstrap/cache
-chmod -R 770 /var/www/service/storage /var/www/service/bootstrap/cache
+chgrp -R www-data /var/www/service/storage /var/www/service/bootstrap/cache /var/www/service
+chmod -R ug+rwx /var/www/service/storage /var/www/service/bootstrap/cache
+php /var/www/service/artisan config:cache
 
 if [ "${1:0:1}" = '-' ]; then
 	set -- php-fpm "$@"

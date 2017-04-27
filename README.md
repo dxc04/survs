@@ -12,7 +12,20 @@
 ```sh
 > git clone git@github.com:illuminateeducation/surveys.git surveys
 > cd surveys
+> composer install
+> npm install
+> cp .env.example .env 
+> php artisan key:generate
+> php artisan config:cache
+> make network
+> make compose
+```
+or
+```sh
+> git clone git@github.com:illuminateeducation/surveys.git surveys
+> cd surveys
 > make dep
 > make network
 > make compose
 ```
+
