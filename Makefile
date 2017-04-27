@@ -19,6 +19,7 @@ export BRANCH := ${BRANCH}
 
 dep:
 	composer install -n
+	npm install
 
 test:
 	vendor/bin/phpunit --coverage-clover build/logs/clover.xml
