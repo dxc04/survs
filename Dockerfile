@@ -28,14 +28,14 @@ RUN mkdir -p /usr/src/php/ext/redis \
     && echo 'redis' >> /usr/src/php-available-exts \
     && docker-php-ext-install redis
 
-RUN mkdir -p /var/www/service
-VOLUME /var/www/service
+#RUN mkdir -p /var/www/service
+#VOLUME .:/var/www/service
 
-WORKDIR /var/www/service
+#WORKDIR /var/www/service
 
-COPY . ./
+COPY ./ /var/www/service
 COPY docker-entrypoint.sh /
 COPY docker-fs/www.conf /usr/local/etc/php-fpm.d/www.conf
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+#ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["php-fpm", "-F"]    
