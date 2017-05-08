@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Support\Collection;
 
@@ -15,6 +15,8 @@ use Illuminate\Support\Collection;
  */
 class Respondent extends AbstractModel
 {
+    protected $fillable = ['remote_id'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

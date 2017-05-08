@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 /**
  * Class Answer
@@ -13,6 +13,8 @@ namespace App;
  */
 class Answer extends AbstractModel
 {
+    protected $fillable = ['answer'];
+
     public function question()
     {
         return $this->belongsTo(Question::class);

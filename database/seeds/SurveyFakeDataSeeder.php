@@ -1,12 +1,12 @@
 <?php
 
-use App\Answer;
-use App\Choice;
-use App\Question;
-use App\Respondent;
-use App\Response;
-use App\Roster;
-use App\Survey;
+use App\Models\Answer;
+use App\Models\Choice;
+use App\Models\Question;
+use App\Models\Respondent;
+use App\Models\Response;
+use App\Models\Roster;
+use App\Models\Survey;
 use Illuminate\Database\Seeder;
 
 class SurveyFakeDataSeeder extends Seeder
@@ -22,7 +22,11 @@ class SurveyFakeDataSeeder extends Seeder
 
         /** @var Question $question */
         $question = factory(Question::class)->make();
-        $choices = factory(Choice::class, 4)->make();
+
+        $choices = factory(Choice::class, 4)->make([
+            'order' => function() {static $order = 0; return $order++;},
+            'label' => function() {static $label = 'A'; return $label++;},
+        ]);
         $choices->each(function(Choice $choice) use ($question) {
             $question->choices()->associate($choice);
         });
@@ -30,7 +34,7 @@ class SurveyFakeDataSeeder extends Seeder
         $survey->questions()->save($question);
 
 
-        /** @var Roster $roster */
+        /** @var \App\Models\Roster $roster */
         $roster = factory(Roster::class)->make();
         /** @var Respondent $respondent */
         $respondent = factory(Respondent::class)->make();

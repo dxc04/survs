@@ -1,10 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 /**
  * Class Question
