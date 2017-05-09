@@ -40,20 +40,20 @@ network:
 	docker network create $(NS)
 
 build:
-	docker build -t quay.io/$(NS)/$(REPO):$(VERSION) .
+	docker build -f ./docker/container/php-fpm/Dockerfile -t quay.io/$(NS)/$(REPO):$(VERSION) .
 
 tag:
-	docker tag quay.io/$(NS)/$(REPO):$(VERSION) quay.io/$(NS)/$(REPO):$(BRANCH)
+	docker tag -f ./docker/container/php-fpm/Dockerfile quay.io/$(NS)/$(REPO):$(VERSION) quay.io/$(NS)/$(REPO):$(BRANCH)
 
 push:
 	docker push quay.io/$(NS)/$(REPO):$(VERSION)
 	docker push quay.io/$(NS)/$(REPO):$(BRANCH)
 
 compose:
-	docker-compose up --build --force-recreate
+	docker-compose --project-name surveys --file ./docker/docker-compose.yml up --build --force-recreate
 
 composedie:
-	docker-compose rm -f php
+	docker-compose --project-name=surveys --file ./docker/docker-compose.yml rm
 
 rebuild: composedie compose
 
