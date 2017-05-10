@@ -26,5 +26,6 @@
       </footer>
 
     </div>
+    <script type="text/javascript" src="{{ mix('js/app.compiled.min.js') }}"></script>
 </body>
 </html>

@@ -27,4 +27,12 @@ mix.js('resources/assets/js/app.js', 'public/js')
  |--------------------------------------------------------------------------
  */
 mix.extract(['react', 'react-dom'], 'public/js/react.compiled.min.js');
-mix.react('resources/assets/js/survey.jsx', 'public/js/survey.js');
+mix.react('resources/assets/js/main-app.jsx', 'public/js/main-app.js');
+mix.scripts(
+    [
+        'public/js/manifest.js',
+        'public/js/react.compiled.min.js',
+        'public/js/main-app.js'
+    ],
+    'public/js/app.compiled.min.js'
+);
