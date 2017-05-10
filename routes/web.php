@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('create_survey', function () {
+    return view('create_survey');
+});
