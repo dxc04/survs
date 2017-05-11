@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
 
 </head>
@@ -22,7 +21,7 @@
 
 
       <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; 2017 DnA Surveys.</p>
       </footer>
 
     </div>

@@ -8,7 +8,8 @@ export default class Survey extends Component {
         super(props);    
 
         this.state = {
-            survey_title: ''    
+            survey_title: '',
+            description: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -16,35 +17,49 @@ export default class Survey extends Component {
 
     handleChange(e) {
         this.setState({
-           survey_title: e.target.survey_title 
+           [name]: e.target.value,
         });
     }
 
-
     getValidationState() {
+        /*
         const length = this.state.survey_title.length;
         if (length > 10) return 'success';
-        else if (length > 5) return 'warning';
-        else if (length > 0) return 'error';
+        */
     }
 
     render() {
         return (
             <form>
-                <FormGroup
-                    controlId="formBasicText"
+                <FormGroup bsSize="large"
                     validationState={this.getValidationState()}
                 >
                     <FormControl
                         type="text"
+                        name="survey_title"
                         value={this.state.survey_title}
                         placeholder="Survey Title"
+                        className="input-title-lg"
                         onChange={this.handleChange}
                     />
                     <FormControl.Feedback />
-                    <HelpBlock>Validation is based on string length.</HelpBlock>
+                    <HelpBlock></HelpBlock>
                 </FormGroup>
+
+                <FormGroup>
+                    <FormControl
+                        componentClass="textarea"
+                        name="description"
+                        value={this.state.description}
+                        placeholder="Description"
+                        onChange={this.handleChange}
+                    />
+                    <FormControl.Feedback />
+                    <HelpBlock>What is the survey about?</HelpBlock>
+                </FormGroup>
+
                 {this.props.children}
+
             </form>
         );
     }
