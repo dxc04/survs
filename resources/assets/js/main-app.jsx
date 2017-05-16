@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Survey from "./components/survey.jsx";
+import SurveyBuilder from "./components/survey-builder.jsx";
 
 ReactDOM.render(
-    <Survey />,
+    <SurveyBuilder />,
     document.getElementById('survey-creation')
 );

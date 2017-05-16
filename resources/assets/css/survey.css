@@ -5,3 +5,11 @@
 .input-title-lg {
     font-size: 20px !important;
 }
+
+#question-controls {
+    position: absolute;
+    width:40px;
+    height:30px;
+    top:10%;
+    left:81%;
+}
