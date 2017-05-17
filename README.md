@@ -1,4 +1,6 @@
-# surveys
+# Surveys
+[![Build Status](https://travis-ci.com/illuminateeducation/surveys.svg?token=HV3QNmWoiU9TqhNRL3DS&branch=master)](https://travis-ci.com/illuminateeducation/surveys)
+
 DnA Surveys
 
 ### Additional Application Requirements
@@ -13,7 +15,6 @@ DnA Surveys
  * Models extend `App\Models\AbstractModel`.
  * Models use `App\Models` for namespace.
  
- 
- ### Tools
- * See `php artisan make:model --help` for creating models. Example: `php artisan make:model 'Models\User'`
- * Run `php artisan db:seed --class=SurveyFakeDataSeeder` to generate sample survey, question, roster and responses.
+### Tools
+* See `php artisan make:model --help` for creating models. Example: `php artisan make:model 'Models\User'`
+* Run `php artisan db:seed --class=SurveyFakeDataSeeder` to generate sample survey, question, roster and responses.
