@@ -5,17 +5,10 @@ networks:
       name: illuminateeducation
 services:
     php:
-#      container_name: "${APP_NAME}"
-      build: 
+      build:
         context: ../
-        dockerfile: docker/container/php-fpm/Dockerfile
       depends_on:
-#        - mongodb
-        - redis_master
-        - redis_slave
-        - sentinel
-#      environment:
-#      working_dir: /var/www/service
+        - mongo
     nginx:
       image: nginx:alpine
       depends_on:
@@ -24,22 +17,7 @@ services:
         - php
       volumes:
         - ./docker-fs/vhost.conf:/etc/nginx/conf.d/default.conf
-#    mongodb:
-#      image: postgres:alpine
-#      environment:
-#       - POSTGRES_PASSWORD=docker
-#       - POSTGRES_USER=docker
-    sentinel:
-        image: s7anley/redis-sentinel-docker
-        environment:
-            - MASTER_NAME=mymaster
-            - QUORUM=1
-            - MASTER=redis_master
-            - SLAVES=redis_slave
-        depends_on:
-            - redis_master
-            - redis_slave
-    redis_master:
-        image: redis:alpine
-    redis_slave:
-        image: redis:alpine
+      ports:
+         - "80:80"
+    mongo:
+      image: mongo:latest
