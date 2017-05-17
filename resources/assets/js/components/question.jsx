@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 export default class Question extends Component {
     constructor(props) {
@@ -24,7 +22,7 @@ export default class Question extends Component {
                         <a className="btn btn-default btn-sm" href="#" role="button">
                             <i className="fa fa-files-o"></i>
                         </a>
-                        <a className="btn btn-default btn-sm" href="#" role="button">
+                        <a className="btn btn-default btn-sm" href="#" role="button" onClick={this.props.actions.remove(this.props.id)}>
                             <i className="fa fa-trash"></i>
                         </a>
                 </div>

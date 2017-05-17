@@ -12,6 +12,8 @@ export default class SurveyBuilder extends Component {
             questions: []
         };
 
+        this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
+        this.onAddQuestion = this.onAddQuestion.bind(this);
     }
 
     onAddQuestion () {
@@ -24,16 +26,27 @@ export default class SurveyBuilder extends Component {
         });
     }
 
+    onRemoveQuestion (id) {
+        this.setState(function(prevState, props) {
+            return {questions: _.filter(prevState.questions, ['id', id])};
+        });
+    }
+
     buildQuestions () {
         return this.state.questions.map((question) => 
-            <Question key={question.id} id={question.id} />
+            <Question 
+                questions={this.state.questions}
+                key={question.id}
+                id={question.id}
+                actions={{remove: () => this.onRemoveQuestion }}
+            />
         );
     }
 
     render() {
         const children = this.buildQuestions();
         return (
-            <Survey addQuestion={this.onAddQuestion.bind(this)}>
+            <Survey addQuestion={this.onAddQuestion}>
                 <Information />
                 {children}
             </Survey>

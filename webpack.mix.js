@@ -35,6 +35,7 @@ mix.scripts(
     [
         'public/js/manifest.js',
         'public/js/react.compiled.min.js',
+        'public/js/app.js',
         'public/js/main-app.js'
     ],
     'public/js/app.compiled.min.js'
