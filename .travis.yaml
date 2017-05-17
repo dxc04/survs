@@ -1,0 +1,23 @@
+sudo: required
+services:
+- docker
+install:
+- docker run --rm --interactive --tty \
+    --volume $PWD:/app \
+    --volume $COMPOSER_HOME:/composer \
+    --user $(id -u):$(id -g) \
+    composer install --ignore-platform-reqs --no-scripts
+- docker run \
+      --rm \
+      -ti \
+      -v $(pwd):/src:rw \
+      mkenney/npm:debian npm install
+- docker build -t $TRAVIS_REPO_SLUG .
+script:
+- date
+after_success:
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" quay.io
+- docker tag $TRAVIS_REPO_SLUG:latest quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_COMMIT
+- docker tag $TRAVIS_REPO_SLUG:latest quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+- if ! $TRAVIS_PULL_REQUEST ; then docker push quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_COMMIT ; fi
+- if ! $TRAVIS_PULL_REQUEST ; then docker push quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH ; fi
