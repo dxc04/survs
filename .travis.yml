@@ -6,6 +6,9 @@ install:
 - docker run --rm --interactive --tty --volume $PWD:/src mkenney/npm:debian npm install
 - docker build -t $TRAVIS_REPO_SLUG .
 script:
+- cp .env.example .env
+- php artisan key:generate
+- php artisan config:cache
 - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 after_success:
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" quay.io
