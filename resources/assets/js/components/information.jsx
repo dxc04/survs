@@ -55,7 +55,6 @@ export default class Information extends Component {
                         onChange={this.handleChange}
                     />
                     <FormControl.Feedback />
-                    <HelpBlock>What is the survey about?</HelpBlock>
                 </FormGroup>
 
                 {this.props.children}
