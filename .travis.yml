@@ -2,8 +2,8 @@ sudo: required
 services:
 - docker
 install:
-- docker run --rm --interactive --tty --volume $PWD:/app --volume $COMPOSER_HOME:/composer --user $(id -u):$(id -g) composer install --ignore-platform-reqs --no-scripts
-- docker run --rm --interactive --tty --volume $PWD:/src mkenney/npm:debian npm install
+- composer install --ignore-platform-reqs --no-scripts
+- docker run --rm --interactive --tty --volume $(pwd):/src mkenney/npm:debian npm install
 - docker build -t $TRAVIS_REPO_SLUG .
 script:
 - cp .env.example .env
