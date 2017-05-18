@@ -1,0 +1,13 @@
+## Override configuration for development environment
+version: "2"
+services:
+  app:
+    build:
+      args:
+        - BUILD_ENV=development
+    volumes:
+      - "./:/var/www/service"
+  nginx:
+    ports:
+      - "80:80"
+

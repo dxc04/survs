@@ -1,7 +1,12 @@
 FROM php:7.1-fpm
 
+ARG BUILD_ENV
+
 ENV PHPREDIS_VERSION 3.0.0
 ENV MONGODB_VERSION 1.2.9
+
+RUN echo "ENVIRONMENT::$BUILD_ENV"
+RUN if [ "${BUILD_ENV}" = "development" ]; then echo "${BUILD_ENV}"; fi
 
 RUN apt-get update \
     && apt-get upgrade -y \
