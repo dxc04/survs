@@ -13,6 +13,7 @@ export default class Question extends Component {
         
         this.questionTemplate = this.questionTemplate.bind(this);
         this.remove = this.remove.bind(this);
+        this.duplicate = this.duplicate.bind(this);
     }
 
     questionTemplate(question) {
@@ -32,6 +33,10 @@ export default class Question extends Component {
                             options={_.isEmpty(question.details.options) ? [] : question.details.options}
                         />; 
         }
+    }
+
+    duplicate () {
+        this.props.actions.duplicate(this.props.id);
     }
 
     remove () {
@@ -54,7 +59,7 @@ export default class Question extends Component {
                         <div className="row">
                             <div className="col-md-4">
                                 <ButtonToolbar>
-                                    <Button bsStyle="default" bsSize="small">
+                                    <Button bsStyle="default" bsSize="small" onClick={this.duplicate}>
                                         <i className="fa fa-files-o"></i>
                                     </Button>
                                     <Button bsStyle="default" bsSize="small" onClick={this.remove}>

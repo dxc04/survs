@@ -12,8 +12,9 @@ export default class SurveyBuilder extends Component {
             questions: []
         };
 
-        this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
         this.onAddQuestion = this.onAddQuestion.bind(this);
+        this.onDuplicateQuestion = this.onDuplicateQuestion.bind(this);
+        this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
     }
 
     onAddQuestion () {
@@ -33,6 +34,20 @@ export default class SurveyBuilder extends Component {
         });
     }
 
+    onDuplicateQuestion (id) {
+        const question = _.find(this.state.questions, ['id', id]);
+        const index = _.findIndex(this.state.questions, ['id', id]) + 1;
+        const dup_question = _.clone(question);
+        dup_question.id = _.uniqueId('new_question_');
+
+        this.setState(function(prevState, props) {
+            const questions = prevState.questions;
+            questions.splice(index, 0, dup_question);
+
+            return {questions: questions};
+        });
+    }
+
     onRemoveQuestion (id) {
         this.setState(function(prevState, props) {
             return {
@@ -48,7 +63,7 @@ export default class SurveyBuilder extends Component {
             <Question 
                 key={question.id}
                 id={question.id}
-                actions={{remove: this.onRemoveQuestion }}
+                actions={{remove: this.onRemoveQuestion, duplicate: this.onDuplicateQuestion }}
                 question={question}
             />
         );
