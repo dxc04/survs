@@ -1,9 +1,46 @@
-#survey-creation {
-    margin-top: 50px;
+/* Circular buttons */
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 35px;
 }
 
-.input-title-lg {
-    font-size: 20px !important;
+/* link circle */
+.link-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding:4px 5px 7px 6px;
+    margin-top:4px;
+}
+
+.link-circle:hover, .link-circle:active:hover {
+    border-radius: 50%;
+}
+
+/* custom styling */
+#survey-creation {
+    margin-top: 50px;
 }
 
 #question-controls {
@@ -14,6 +51,21 @@
     left:81%;
 }
 
+.input-title-lg {
+    font-size: 20px !important;
+}
+
 .btn-toolbar {
     margin-top: 7px;
+}
+
+.multiple-choice-container input[type="radio"] {
+    position: absolute !important;
+    margin-top: 13px !important;
+}
+
+.multiple-choice-container input[type="text"] {
+    font-size: 12px;
+    display: inline;
+    width: 300px;
 }
