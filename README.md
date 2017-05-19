@@ -56,6 +56,7 @@ or
 * Run `npm run dev` to load all necessary assets and React packages.
 * Run `npm run watch` to automatically transpile any changes in your react or jsx files.
 * See more info on handling assets at https://laravel.com/docs/5.4/mix#running-mix
+* You can access "Create Survey" using `create_survey` route. Example. `http://localhost/create_survey`
 
 ### React Components
 * All ReactJs are located at `./resources/assets/js/components/`.
