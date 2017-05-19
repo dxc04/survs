@@ -34,19 +34,23 @@ export default class SurveyBuilder extends Component {
                     ]        
                 }
             });
-            return {questions: prevState.survey.questions};
+            return {survey: prevState.survey};
         });
 
         this.onActiveQuestion(new_id);
+
+        if (!_.isEmpty(this.state.questions)) {
+            document.getElementById("survey-questions").lastElementChild.scrollIntoView({block: "end", behavior: "smooth"});
+        }
     }
 
     onRemoveQuestion (id) {
         this.setState(function(prevState, props) {
-            return {
-                questions: _.remove(prevState.survey.questions, (n) => {
+            const questions = _.remove(prevState.survey.questions, (n) => {
                     return id != n.id;    
-                })
-            };
+            });
+            prevState.survey.questions = questions;
+            return {survey : prevState.survey};
         });
     }
 
@@ -59,8 +63,9 @@ export default class SurveyBuilder extends Component {
         this.setState(function(prevState, props) {
             const questions = prevState.survey.questions;
             questions.splice(index, 0, dup_question);
+            prevState.survey.questions = questions;
 
-            return {questions: questions};
+            return {survey : prevState.survey};
         });
 
         this.onActiveQuestion(dup_question.id);
@@ -72,7 +77,7 @@ export default class SurveyBuilder extends Component {
                 prevState.survey.questions[key].active = (value.id == id);   
             });
             
-            return {questions: prevState.survey.questions};
+            return {survey: prevState.survey};
         });
     }
 
@@ -80,7 +85,7 @@ export default class SurveyBuilder extends Component {
         this.setState(function(prevState, props) {
             const question = _.find(prevState.survey.questions, ['id', id]);
             question.type = value;
-            return {questions: prevState.survey.questions};
+            return {survey: prevState.survey};
         });
     }
 
@@ -105,9 +110,11 @@ export default class SurveyBuilder extends Component {
     render () {
         const children = this.buildQuestions();
         return (
-            <Survey title={this.props.survey.title} description={this.props.survey.description} addQuestion={this.onAddQuestion}>
-                <Information />
-                {children}
+            <Survey survey={this.props.survey.questions} addQuestion={this.onAddQuestion}>
+                <Information title={this.props.survey.title} description={this.props.survey.description} />
+                <div id="survey-questions">
+                    {children}
+                </div>
             </Survey>
         );
     }

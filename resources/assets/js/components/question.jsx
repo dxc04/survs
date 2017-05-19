@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
@@ -15,6 +16,7 @@ export default class Question extends Component {
         this.remove = this.remove.bind(this);
         this.duplicate = this.duplicate.bind(this);
         this.active = this.active.bind(this);
+        this.focus = this.focus.bind(this);
         this.updateType = this.updateType.bind(this);
     }
 
@@ -31,6 +33,11 @@ export default class Question extends Component {
            return null;    
         }
         this.props.actions.active(this.props.id);    
+        this.focus(this.props.id);
+    }
+
+    focus (id) {
+        ReactDOM.findDOMNode(this.refs[id]).scrollIntoView({block: "end", behavior: "smooth"});
     }
 
     updateType (event) {
@@ -60,7 +67,7 @@ export default class Question extends Component {
     render () {
         const panel_class = 'panel panel-default ' + (this.props.question.active ? 'panel-active' : ''); 
         return (
-            <div className={panel_class} onClick={this.active}>
+            <div ref={this.props.question.id} className={panel_class} onClick={this.active}>
                 <div className="panel-body">
                     <div className="pull-right question-number">{this.props.label}</div>
                     <FormControl
