@@ -24,7 +24,8 @@ export default class MultipleChoice extends Component {
     addOption(event) {
         const target = event.target;
         const new_val = target.value;
-        if (_.isEmpty(new_val)) {
+
+        if ((event.type == 'blur' && _.isEmpty(new_val)) || (event.type == 'keypress' && event.charCode!=13)) {
             return null;
         }
         this.setState(function(prevState, props) {
@@ -67,6 +68,7 @@ export default class MultipleChoice extends Component {
                         placeholder="Add Option"
                         bsClass="form-control"
                         onBlur={this.addOption}
+                        onKeyPress={this.addOption}
                     />
                 </Radio>
             </div>

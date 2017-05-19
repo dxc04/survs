@@ -9,19 +9,23 @@ export default class SurveyBuilder extends Component {
         super(props);    
 
         this.state = {
-            questions: []
+            questions: _.isEmpty(this.props.questions) ? [] : this.props.questions
         };
 
         this.onAddQuestion = this.onAddQuestion.bind(this);
         this.onDuplicateQuestion = this.onDuplicateQuestion.bind(this);
         this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
+        this.onActiveQuestion = this.onActiveQuestion.bind(this);
+        this.onUpdateQuestionType = this.onUpdateQuestionType.bind(this);
     }
 
     onAddQuestion () {
+        const new_id = _.uniqueId('new_question_');
         this.setState(function(prevState, props) {
             prevState.questions.push({
-                id: _.uniqueId('new_question_'),
+                id: new_id,
                 type: 'multiple_choice',
+                active: true,
                 details: {
                     options: [
                         'Option 1',
@@ -31,6 +35,28 @@ export default class SurveyBuilder extends Component {
                 }
             });
             return {questions: prevState.questions};
+        });
+
+        this.onActiveQuestion(new_id);
+    }
+
+    onActiveQuestion (id) {
+        this.setState(function(prevState, props) {
+            _.each(prevState.questions, (value, key) => {
+                prevState.questions[key].active = (value.id == id);   
+            });
+            
+            return {questions: prevState.questions};
+        });
+    }
+
+    onRemoveQuestion (id) {
+        this.setState(function(prevState, props) {
+            return {
+                questions: _.remove(prevState.questions, (n) => {
+                    return id != n.id;    
+                })
+            };
         });
     }
 
@@ -48,13 +74,11 @@ export default class SurveyBuilder extends Component {
         });
     }
 
-    onRemoveQuestion (id) {
+    onUpdateQuestionType (id, value) {
         this.setState(function(prevState, props) {
-            return {
-                questions: _.remove(prevState.questions, (n) => {
-                    return id != n.id;    
-                })
-            };
+            const question = _.find(prevState.questions, ['id', id]);
+            question.type = value;
+            return {questions: prevState.questions};
         });
     }
 
@@ -63,8 +87,14 @@ export default class SurveyBuilder extends Component {
             <Question 
                 key={question.id}
                 id={question.id}
-                actions={{remove: this.onRemoveQuestion, duplicate: this.onDuplicateQuestion }}
+                actions={{
+                    remove: this.onRemoveQuestion,
+                    duplicate: this.onDuplicateQuestion,
+                    active: this.onActiveQuestion,
+                    updateType: this.onUpdateQuestionType
+                }}
                 question={question}
+                question_types = {this.props.question_types}
             />
         );
     }

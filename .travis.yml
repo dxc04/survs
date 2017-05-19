@@ -1,0 +1,18 @@
+sudo: required
+services:
+- docker
+install:
+- composer install --ignore-platform-reqs --no-scripts
+- docker run --rm --interactive --tty --volume $(pwd):/src mkenney/npm:debian npm install
+- docker build -t $TRAVIS_REPO_SLUG .
+script:
+- cp .env.example .env
+- php artisan key:generate
+- php artisan config:cache
+- vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+after_success:
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" quay.io
+- docker tag $TRAVIS_REPO_SLUG:latest quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_COMMIT
+- docker tag $TRAVIS_REPO_SLUG:latest quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+- if ! $TRAVIS_PULL_REQUEST ; then docker push quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_COMMIT ; fi
+- if ! $TRAVIS_PULL_REQUEST ; then docker push quay.io/$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH ; fi

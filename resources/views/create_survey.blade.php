@@ -22,9 +22,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="survey-creation" class="row well well-lg">
-        </div>
-
+        <div id="survey-creation" class="row well well-lg"></div>
 
       <footer class="footer">
         <p>&copy; 2017 DnA Surveys.</p>
