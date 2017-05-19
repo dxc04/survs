@@ -49,3 +49,26 @@ or
 ### Tools
 * See `php artisan make:model --help` for creating models. Example: `php artisan make:model 'Models\User'`
 * Run `php artisan db:seed --class=SurveyFakeDataSeeder` to generate sample survey, question, roster and responses.
+
+
+### ReactJs
+* Make sure to install the required packages `npm install`. You may want to delete `node_modules` folder before installing to make sure you only have the needed packages.
+* Run `npm run dev` to load all necessary assets and React packages.
+* Run `npm run watch` to automatically transpile any changes in your react or jsx files.
+* See more info on handling assets at https://laravel.com/docs/5.4/mix#running-mix
+
+### React Components
+* All ReactJs are located at `./resources/assets/js/components/`.
+* `main-app.jsx` which renders the entire app is at `./resources/assets/js/main-app.jsx` 
+ ```
+ main-app.jsx
+ |_ SurveyBuilder (survey-builder.jsx)
+      |_ Survey (survey.jsx)
+           |_ Information (information.jsx)
+           |_ Question (question.jsx)
+                |_ (Question Types Components - multiple_choice, checkboxes, etc.) 
+ ```
+ 
+ ### React Conventions
+ * File names are all lower case and hyphen separated. Component name is then `UpperCamelCase` Example. `survey.jsx` -> `Survey` , `survey-builder.jsx` -> `SurveyBuilder`
+ * All components must recide at `./resources/assets/js/components/`. Create new folders in `components` folder if necessary. `question_types` folder is already created to hold components for different question types.
