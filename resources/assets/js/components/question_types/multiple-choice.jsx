@@ -21,7 +21,7 @@ export default class MultipleChoice extends Component {
         this.removeOption = this.removeOption.bind(this);
     }
 
-    addOption(event) {
+    addOption (event) {
         const target = event.target;
         const new_val = target.value;
 
@@ -36,7 +36,7 @@ export default class MultipleChoice extends Component {
         target.value = '';
     }
 
-    removeOption(event) {
+    removeOption (event) {
         const target = event.target;
         this.setState(function(prevState, props) {
             _.pullAt(prevState.options, target.value);

@@ -4,9 +4,10 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 export default class Information extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);    
 
+        /*@todo: set state from props*/
         this.state = {
             survey_title: '',
             description: ''
@@ -15,20 +16,20 @@ export default class Information extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(e) {
+    handleChange (event) {
         this.setState({
-           [name]: e.target.value,
+           [name]: event.target.value,
         });
     }
 
-    getValidationState() {
+    getValidationState () {
         /*
         const length = this.state.survey_title.length;
         if (length > 10) return 'success';
         */
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <FormGroup bsSize="large"

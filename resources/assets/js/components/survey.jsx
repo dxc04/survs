@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 
 export default class Survey extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);    
 
     }
 
-    render() {
+    render () {
         return (
             <form>
-
                 <div className="main-controls">
                     <a onClick={this.props.addQuestion} className="btn btn-success btn-circle btn-lg" title="Add Question">
                         <i className="fa fa-plus" aria-hidden="true"></i>

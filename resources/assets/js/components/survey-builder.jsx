@@ -5,7 +5,7 @@ import Information from "./information.jsx";
 import Question from "./question.jsx";
 
 export default class SurveyBuilder extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);    
 
         this.state = {
@@ -102,7 +102,7 @@ export default class SurveyBuilder extends Component {
         );
     }
 
-    render() {
+    render () {
         const children = this.buildQuestions();
         return (
             <Survey addQuestion={this.onAddQuestion}>

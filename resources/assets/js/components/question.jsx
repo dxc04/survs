@@ -8,10 +8,10 @@ import Checkbox from 'react-bootstrap/lib/Checkbox';
 import MultipleChoice from './question_types/multiple-choice';
 
 export default class Question extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
-        this.questionTemplate = this.questionTemplate.bind(this);
+        this.template = this.template.bind(this);
         this.remove = this.remove.bind(this);
         this.duplicate = this.duplicate.bind(this);
         this.active = this.active.bind(this);
@@ -38,7 +38,7 @@ export default class Question extends Component {
         this.props.actions.updateType(this.props.id, target.value);    
     } 
 
-    questionTemplate(question) {
+    template (question) {
         switch (question.type) {
             case 'multiple_choice' :
                 return <MultipleChoice 
@@ -69,7 +69,7 @@ export default class Question extends Component {
                         placeholder="Question"
                         className="input-title-lg"
                     />
-                    {this.questionTemplate(this.props.question)}
+                    {this.template(this.props.question)}
                 </div>
                 <div className="panel-footer">
                         <div className="row">
