@@ -40,16 +40,6 @@ export default class SurveyBuilder extends Component {
         this.onActiveQuestion(new_id);
     }
 
-    onActiveQuestion (id) {
-        this.setState(function(prevState, props) {
-            _.each(prevState.questions, (value, key) => {
-                prevState.questions[key].active = (value.id == id);   
-            });
-            
-            return {questions: prevState.questions};
-        });
-    }
-
     onRemoveQuestion (id) {
         this.setState(function(prevState, props) {
             return {
@@ -71,6 +61,18 @@ export default class SurveyBuilder extends Component {
             questions.splice(index, 0, dup_question);
 
             return {questions: questions};
+        });
+
+        this.onActiveQuestion(dup_question.id);
+    }
+
+    onActiveQuestion (id) {
+        this.setState(function(prevState, props) {
+            _.each(prevState.questions, (value, key) => {
+                prevState.questions[key].active = (value.id == id);   
+            });
+            
+            return {questions: prevState.questions};
         });
     }
 

@@ -26,7 +26,10 @@ export default class Question extends Component {
         this.props.actions.remove(this.props.id);
     }
 
-    active () {
+    active (event) {
+        if (event.target.dataset.duplicate) {
+           return null;    
+        }
         this.props.actions.active(this.props.id);    
     }
 
@@ -54,10 +57,6 @@ export default class Question extends Component {
         }
     }
 
-    selectQuestionType (event) {
-        
-    }
-
     render () {
         const panel_class = 'panel panel-default ' + (this.props.question.active ? 'panel-active' : ''); 
         return (
@@ -75,8 +74,8 @@ export default class Question extends Component {
                         <div className="row">
                             <div className="col-md-4">
                                 <ButtonToolbar>
-                                    <Button bsStyle="default" bsSize="small" onClick={this.duplicate}>
-                                        <i className="fa fa-files-o"></i>
+                                    <Button bsStyle="default" data-duplicate bsSize="small" onClick={this.duplicate}>
+                                        <i data-duplicate className="fa fa-files-o duplicate-ctrl"></i>
                                     </Button>
                                     <Button bsStyle="default" bsSize="small" onClick={this.remove}>
                                         <i className="fa fa-trash"></i>
