@@ -62,6 +62,7 @@ export default class Question extends Component {
         return (
             <div className={panel_class} onClick={this.active}>
                 <div className="panel-body">
+                    <div className="pull-right question-number">{this.props.label}</div>
                     <FormControl
                         type="text"
                         name="question"

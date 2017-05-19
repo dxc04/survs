@@ -85,10 +85,11 @@ export default class SurveyBuilder extends Component {
     }
 
     buildQuestions () {
-        return this.state.questions.map((question) => 
+        return this.state.questions.map((question, index) => 
             <Question 
                 key={question.id}
                 id={question.id}
+                label={'Q'+(index+1)}
                 actions={{
                     remove: this.onRemoveQuestion,
                     duplicate: this.onDuplicateQuestion,
