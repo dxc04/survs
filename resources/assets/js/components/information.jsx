@@ -7,12 +7,6 @@ export default class Information extends Component {
     constructor (props) {
         super(props);    
 
-        /*@todo: set state from props*/
-        this.state = {
-            survey_title: '',
-            description: ''
-        }
-
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -38,7 +32,7 @@ export default class Information extends Component {
                     <FormControl
                         type="text"
                         name="survey_title"
-                        value={this.state.survey_title}
+                        value={this.props.title}
                         placeholder="Survey Title"
                         className="input-title-lg"
                         onChange={this.handleChange}
@@ -51,7 +45,7 @@ export default class Information extends Component {
                     <FormControl
                         componentClass="textarea"
                         name="description"
-                        value={this.state.description}
+                        value={this.props.description}
                         placeholder="Description"
                         onChange={this.handleChange}
                     />

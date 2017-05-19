@@ -9,7 +9,7 @@ export default class SurveyBuilder extends Component {
         super(props);    
 
         this.state = {
-            questions: _.isEmpty(this.props.questions) ? [] : this.props.questions
+            survey: this.props.survey
         };
 
         this.onAddQuestion = this.onAddQuestion.bind(this);
@@ -22,7 +22,7 @@ export default class SurveyBuilder extends Component {
     onAddQuestion () {
         const new_id = _.uniqueId('new_question_');
         this.setState(function(prevState, props) {
-            prevState.questions.push({
+            prevState.survey.questions.push({
                 id: new_id,
                 type: 'multiple_choice',
                 active: true,
@@ -34,7 +34,7 @@ export default class SurveyBuilder extends Component {
                     ]        
                 }
             });
-            return {questions: prevState.questions};
+            return {questions: prevState.survey.questions};
         });
 
         this.onActiveQuestion(new_id);
@@ -43,7 +43,7 @@ export default class SurveyBuilder extends Component {
     onRemoveQuestion (id) {
         this.setState(function(prevState, props) {
             return {
-                questions: _.remove(prevState.questions, (n) => {
+                questions: _.remove(prevState.survey.questions, (n) => {
                     return id != n.id;    
                 })
             };
@@ -51,13 +51,13 @@ export default class SurveyBuilder extends Component {
     }
 
     onDuplicateQuestion (id) {
-        const question = _.find(this.state.questions, ['id', id]);
-        const index = _.findIndex(this.state.questions, ['id', id]) + 1;
+        const question = _.find(this.state.survey.questions, ['id', id]);
+        const index = _.findIndex(this.state.survey.questions, ['id', id]) + 1;
         const dup_question = _.clone(question);
         dup_question.id = _.uniqueId('new_question_');
 
         this.setState(function(prevState, props) {
-            const questions = prevState.questions;
+            const questions = prevState.survey.questions;
             questions.splice(index, 0, dup_question);
 
             return {questions: questions};
@@ -68,24 +68,24 @@ export default class SurveyBuilder extends Component {
 
     onActiveQuestion (id) {
         this.setState(function(prevState, props) {
-            _.each(prevState.questions, (value, key) => {
-                prevState.questions[key].active = (value.id == id);   
+            _.each(prevState.survey.questions, (value, key) => {
+                prevState.survey.questions[key].active = (value.id == id);   
             });
             
-            return {questions: prevState.questions};
+            return {questions: prevState.survey.questions};
         });
     }
 
     onUpdateQuestionType (id, value) {
         this.setState(function(prevState, props) {
-            const question = _.find(prevState.questions, ['id', id]);
+            const question = _.find(prevState.survey.questions, ['id', id]);
             question.type = value;
-            return {questions: prevState.questions};
+            return {questions: prevState.survey.questions};
         });
     }
 
     buildQuestions () {
-        return this.state.questions.map((question, index) => 
+        return this.state.survey.questions.map((question, index) => 
             <Question 
                 key={question.id}
                 id={question.id}
@@ -97,7 +97,7 @@ export default class SurveyBuilder extends Component {
                     updateType: this.onUpdateQuestionType
                 }}
                 question={question}
-                question_types = {this.props.question_types}
+                question_types = {this.props.survey.question_types}
             />
         );
     }
@@ -105,7 +105,7 @@ export default class SurveyBuilder extends Component {
     render () {
         const children = this.buildQuestions();
         return (
-            <Survey addQuestion={this.onAddQuestion}>
+            <Survey title={this.props.survey.title} description={this.props.survey.description} addQuestion={this.onAddQuestion}>
                 <Information />
                 {children}
             </Survey>
