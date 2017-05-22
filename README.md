@@ -73,3 +73,41 @@ or
  ### React Conventions
  * File names are all lower case and hyphen separated. Component name is then `UpperCamelCase` Example. `survey.jsx` -> `Survey` , `survey-builder.jsx` -> `SurveyBuilder`
  * All components must recide at `./resources/assets/js/components/`. Create new folders in `components` folder if necessary. `question_types` folder is already created to hold components for different question types.
+ 
+ ### Survey Component Data Structure
+ We need to pass certain data to create a survey. The following is the current example data structure for survey creation
+ ``` 
+const survey = {
+    title: '',
+    description: '',
+    questions: [
+         {      
+               id: 'question_1',
+               type: 'multiple_choice',
+               active: true,
+               details: { // any necessary data for the kind of question type
+                    options: [
+                        'Option 1',
+                        'Option 2',
+                        'Option 3'
+                    ]        
+          },
+          {      
+               id: 'question_2',
+               type: 'checkboxes',
+               active: false, // there should be one active question, this will be use which question is currently being edited
+               details: {
+                    options: [
+                        'Option 1',
+                        'Option 2',
+                        'Option 3'
+                    ]        
+          }         
+    ],
+    question_types: {
+        multiple_choice: 'Multiple Choice',
+        checkboxes: 'Checkboxes'
+    }
+};
+
+ ```
