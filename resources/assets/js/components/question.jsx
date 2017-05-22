@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/lib/Button';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 
 import MultipleChoice from './question_types/multiple-choice';
+import ShortAnswer from './question_types/short-answer';
+import Paragraph from './question_types/paragraph';
 
 export default class Question extends Component {
     constructor (props) {
@@ -54,9 +56,9 @@ export default class Question extends Component {
             case 'checkboxes' :
                 return; 
             case 'short_answer' :
-                return; 
+                return <ShortAnswer />; 
             case 'paragraph' :
-                return;
+                return <Paragraph />;
             default :
                 return <MultipleChoice 
                             options={_.isEmpty(question.details.options) ? [] : question.details.options}
@@ -76,6 +78,7 @@ export default class Question extends Component {
                         placeholder="Question"
                         className="input-title-lg"
                     />
+                    <br />
                     {this.template(this.props.question)}
                 </div>
                 <div className="panel-footer">

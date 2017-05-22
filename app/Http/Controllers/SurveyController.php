@@ -10,6 +10,7 @@ class SurveyController extends Controller
     public function create()
     {
         $survey = [
+            'id' => 'new',
             'title' => 'Untitled Survey',
             'description' => '',
             'questions' => [
@@ -31,6 +32,8 @@ class SurveyController extends Controller
         $question_types = [
             'multiple_choice' => 'Multiple Choice',
             'checkboxes' => 'Checkboxes',
+            'short_answer' => 'Short Answer',
+            'paragraph' => 'Paragraph',
         ];
 
         JavaScript::put([
@@ -41,11 +44,6 @@ class SurveyController extends Controller
         return view('survey.create');
     }
 
-    public function edit()
-    {
-    
-    }
-    
     public function save(Request $request)
     {
         // @todo add saving process here
