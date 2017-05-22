@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('create_survey', function () {
-    return view('create_survey');
+// @todo: add authentication filter
+Route::group(['prefix' => 'survey'], function() {
+    Route::get('create', 'SurveyController@create');
+    Route::post('save', 'SurveyController@save');
 });

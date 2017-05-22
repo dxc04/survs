@@ -4,19 +4,28 @@ import Survey from "./survey.jsx";
 import Information from "./information.jsx";
 import Question from "./question.jsx";
 
+import SurveyApi from '../survey-api.jsx';
+
 export default class SurveyBuilder extends Component {
     constructor (props) {
         super(props);    
+
+        this.api = new SurveyApi();
 
         this.state = {
             survey: this.props.survey
         };
 
+        this.save = this.save.bind(this);
         this.onAddQuestion = this.onAddQuestion.bind(this);
         this.onDuplicateQuestion = this.onDuplicateQuestion.bind(this);
         this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
         this.onActiveQuestion = this.onActiveQuestion.bind(this);
         this.onUpdateQuestionType = this.onUpdateQuestionType.bind(this);
+    }
+
+    save () {
+        this.api.save(this.state.survey);
     }
 
     onAddQuestion () {
@@ -42,6 +51,8 @@ export default class SurveyBuilder extends Component {
         if (!_.isEmpty(this.state.questions)) {
             document.getElementById("survey-questions").lastElementChild.scrollIntoView({block: "end", behavior: "smooth"});
         }
+
+        this.save();
     }
 
     onRemoveQuestion (id) {
@@ -52,6 +63,8 @@ export default class SurveyBuilder extends Component {
             prevState.survey.questions = questions;
             return {survey : prevState.survey};
         });
+
+        this.save();
     }
 
     onDuplicateQuestion (id) {
@@ -69,6 +82,8 @@ export default class SurveyBuilder extends Component {
         });
 
         this.onActiveQuestion(dup_question.id);
+
+        this.save();
     }
 
     onActiveQuestion (id) {
@@ -102,7 +117,7 @@ export default class SurveyBuilder extends Component {
                     updateType: this.onUpdateQuestionType
                 }}
                 question={question}
-                question_types = {this.props.survey.question_types}
+                question_types = {this.props.question_types}
             />
         );
     }

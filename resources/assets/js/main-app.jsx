@@ -2,17 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import SurveyBuilder from "./components/survey-builder.jsx";
 
-const survey = {
-    title: '',
-    description: '',
-    questions: [],
-    question_types: {
-        multiple_choice: 'Multiple Choice',
-        checkboxes: 'Checkboxes'
-    }
-};
-
 ReactDOM.render(
-    <SurveyBuilder survey={survey} />,
+    <SurveyBuilder survey={SurveyVars.survey} question_types={SurveyVars.question_types} />,
     document.getElementById('survey-creation')
 );
