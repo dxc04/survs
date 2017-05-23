@@ -23,8 +23,7 @@
 </head>
 <body>
     <div class="container">
-        @yield('content')
-        <div id="survey-creation" class="row well well-lg"></div>
+      @yield('content')
 
       <footer class="footer">
         @include ('footer')
@@ -32,5 +31,6 @@
 
     </div>
     <script type="text/javascript" src="{{ mix('js/app.compiled.min.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

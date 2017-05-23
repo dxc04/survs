@@ -45,6 +45,35 @@ class SurveyController extends Controller
         return view('survey.create');
     }
 
+    public function publish($survey_id)
+    {
+        $survey = [
+            'id' => 'new',
+            'title' => 'Untitled Survey',
+            'description' => '',
+            'questions' => [
+                [
+                    'id' => 'question_1',
+                    'type' => 'multiple_choice',
+                    'active' => true,
+                    'details' => [
+                        'options' => [
+                            'Option 1',
+                            'Option 2',
+                            'Option 3'
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        JavaScript::put([
+            'survey' => $survey,
+        ]);
+
+        return view('survey.publish');
+    }
+
     public function save(Request $request)
     {
         // @todo add saving process here
