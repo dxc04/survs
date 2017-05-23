@@ -4,7 +4,7 @@ import Survey from "./survey.jsx";
 import Information from "./information.jsx";
 import Question from "./question.jsx";
 
-import SurveyApi from '../survey-api.jsx';
+import SurveyApi from '../../survey-api.jsx';
 
 export default class SurveyBuilder extends Component {
     constructor (props) {

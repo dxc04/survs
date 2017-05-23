@@ -60,12 +60,12 @@
     margin-top: 7px;
 }
 
-.multiple-choice-container input[type="radio"] {
+.options-container input[type="radio"] {
     position: absolute !important;
     margin-top: 13px !important;
 }
 
-.multiple-choice-container input[type="text"] {
+.options-container input[type="text"] {
     font-size: 12px;
     display: inline;
     width: 300px;

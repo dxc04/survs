@@ -59,7 +59,7 @@ export default class MultipleChoice extends Component {
             </Radio>
         );
         return (
-            <div className="multiple-choice-container">
+            <div className="options-container">
                 {options}
                 <Radio key="add_option" disabled>
                     <FormControl

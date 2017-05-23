@@ -33,7 +33,7 @@ export default class Survey extends Component {
                     <a className="btn btn-info btn-circle btn-lg" title="Preview">
                         <i className="fa fa-eye" aria-hidden="true"></i>
                     </a>
-                    <a className="btn btn-primary btn-circle btn-lg" title="Save">
+                    <a className="btn btn-primary btn-circle btn-lg" title="Publish and Administer">
                         <i className="fa fa-floppy-o" aria-hidden="true"></i>
                     </a>
                 </div>

@@ -32,6 +32,7 @@ class SurveyController extends Controller
         $question_types = [
             'multiple_choice' => 'Multiple Choice',
             'checkboxes' => 'Checkboxes',
+            'true_or_false' => 'True or False',
             'short_answer' => 'Short Answer',
             'paragraph' => 'Paragraph',
         ];
