@@ -4,31 +4,26 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 export default class Information extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);    
-
-        this.state = {
-            survey_title: '',
-            description: ''
-        }
 
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(e) {
+    handleChange (event) {
         this.setState({
-           [name]: e.target.value,
+           [name]: event.target.value,
         });
     }
 
-    getValidationState() {
+    getValidationState () {
         /*
         const length = this.state.survey_title.length;
         if (length > 10) return 'success';
         */
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <FormGroup bsSize="large"
@@ -37,7 +32,7 @@ export default class Information extends Component {
                     <FormControl
                         type="text"
                         name="survey_title"
-                        value={this.state.survey_title}
+                        value={this.props.title}
                         placeholder="Survey Title"
                         className="input-title-lg"
                         onChange={this.handleChange}
@@ -50,7 +45,7 @@ export default class Information extends Component {
                     <FormControl
                         componentClass="textarea"
                         name="description"
-                        value={this.state.description}
+                        value={this.props.description}
                         placeholder="Description"
                         onChange={this.handleChange}
                     />

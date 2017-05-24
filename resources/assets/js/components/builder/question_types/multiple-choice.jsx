@@ -21,10 +21,11 @@ export default class MultipleChoice extends Component {
         this.removeOption = this.removeOption.bind(this);
     }
 
-    addOption(event) {
+    addOption (event) {
         const target = event.target;
         const new_val = target.value;
-        if (_.isEmpty(new_val)) {
+
+        if ((event.type == 'blur' && _.isEmpty(new_val)) || (event.type == 'keypress' && event.charCode!=13)) {
             return null;
         }
         this.setState(function(prevState, props) {
@@ -35,7 +36,7 @@ export default class MultipleChoice extends Component {
         target.value = '';
     }
 
-    removeOption(event) {
+    removeOption (event) {
         const target = event.target;
         this.setState(function(prevState, props) {
             _.pullAt(prevState.options, target.value);
@@ -58,7 +59,7 @@ export default class MultipleChoice extends Component {
             </Radio>
         );
         return (
-            <div className="multiple-choice-container">
+            <div className="options-container">
                 {options}
                 <Radio key="add_option" disabled>
                     <FormControl
@@ -67,6 +68,7 @@ export default class MultipleChoice extends Component {
                         placeholder="Add Option"
                         bsClass="form-control"
                         onBlur={this.addOption}
+                        onKeyPress={this.addOption}
                     />
                 </Radio>
             </div>

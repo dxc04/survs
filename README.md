@@ -49,3 +49,70 @@ or
 ### Tools
 * See `php artisan make:model --help` for creating models. Example: `php artisan make:model 'Models\User'`
 * Run `php artisan db:seed --class=SurveyFakeDataSeeder` to generate sample survey, question, roster and responses.
+
+
+### ReactJs
+* Make sure to install the required packages `npm install`. You may want to delete `node_modules` folder before installing to make sure you only have the needed packages.
+* Run `npm run dev` to load all necessary assets and React packages.
+* Run `npm run watch` to automatically transpile any changes in your react or jsx files.
+* See more info on handling assets at https://laravel.com/docs/5.4/mix#running-mix
+* You can access for survey creation using `survey/create` route. Example. `http://localhost/survey/create`
+* You can access the published survey using `survey/publish` route. Example. `http:://localhost/survey/publish`
+
+### React Components
+* All ReactJs are located at `./resources/assets/js/components/`.
+* `build-survey-render.jsx` which renders the entire create survey page is at `./resources/assets/js/build-survey-render.jsx`
+* `publish-survey-render.jsx` which renders the entire publish survey page is at `./resources/assets/js/publish-survey-render.jsx` 
+
+ ```
+ build-survey-render.jsx
+ |_ SurveyBuilder (survey-builder.jsx)
+      |_ Survey (survey.jsx)
+           |_ Information (information.jsx)
+           |_ Question (question.jsx)
+                |_ (Question Types Components - multiple_choice, checkboxes, etc.) 
+ ```
+ 
+ ### React Conventions
+ * File names are all lower case and hyphen separated. Component name is then `UpperCamelCase` Example. `survey.jsx` -> `Survey` , `survey-builder.jsx` -> `SurveyBuilder`
+ * All components must recide at `./resources/assets/js/components/`. Create new folders in `components` folder if necessary. `question_types` folder is already created to hold components for different question types.
+ 
+ ### Survey Component Data Structure
+ We need to pass certain data to create a survey. The following is the current example data structure for survey creation
+ ``` 
+const survey = {
+    title: '',
+    description: '',
+    questions: [
+         {      
+               id: 'question_1',
+               type: 'multiple_choice',
+               active: true,
+               details: { // any necessary data for the kind of question type
+                    options: [
+                        'Option 1',
+                        'Option 2',
+                        'Option 3'
+                    ]        
+          },
+          {      
+               id: 'question_2',
+               type: 'checkboxes',
+               active: false, // there should be one active question, this will be use which question is currently being edited
+               details: {
+                    options: [
+                        'Option 1',
+                        'Option 2',
+                        'Option 3'
+                    ]        
+          }         
+    ],
+};
+
+const question_types = {
+    multiple_choice: 'Multiple Choice',
+    checkboxes: 'Checkboxes'
+};
+
+ ```
+

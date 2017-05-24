@@ -28,15 +28,15 @@ mix.js('resources/assets/js/app.js', 'public/js')
  |--------------------------------------------------------------------------
  */
 mix.extract(['react', 'react-dom'], 'public/js/react.compiled.min.js');
-mix.react('resources/assets/js/main-app.jsx', 'public/js/main-app.js');
+mix.react('resources/assets/js/build-survey-render.jsx', 'public/js/build-survey-render.js');
+mix.react('resources/assets/js/publish-survey-render.jsx', 'public/js/publish-survey-render.js');
 
 
 mix.scripts(
     [
         'public/js/manifest.js',
         'public/js/react.compiled.min.js',
-        'public/js/app.js',
-        'public/js/main-app.js'
+        'public/js/app.js'
     ],
     'public/js/app.compiled.min.js'
 );

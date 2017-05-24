@@ -9,6 +9,7 @@
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
+        window.REQUEST_CONFIG = {!! json_encode(config('survey_request')) !!};
     </script>
 
     <title>Survey</title>
@@ -22,15 +23,14 @@
 </head>
 <body>
     <div class="container">
-        <div id="survey-creation" class="row well well-lg">
-        </div>
-
+      @yield('content')
 
       <footer class="footer">
-        <p>&copy; 2017 DnA Surveys.</p>
+        @include ('footer')
       </footer>
 
     </div>
     <script type="text/javascript" src="{{ mix('js/app.compiled.min.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>
