@@ -56,13 +56,17 @@ or
 * Run `npm run dev` to load all necessary assets and React packages.
 * Run `npm run watch` to automatically transpile any changes in your react or jsx files.
 * See more info on handling assets at https://laravel.com/docs/5.4/mix#running-mix
-* You can access "Create Survey" using `survey/create` route. Example. `http://localhost/survey/create`
+* You can access for survey creation using `survey/create` route. Example. `http://localhost/survey/create`
+* You can access the published survey using `survey/publish` route. Example. `http:://localhost/survey/publish`
 
 ### React Components
+<<<<<<< HEAD
 * All ReactJs components are located at `./resources/assets/js/components/`.
-* `main-app.jsx` which renders the entire app is at `./resources/assets/js/main-app.jsx` 
+* `build-survey-render.jsx` which renders the entire create survey page is at `./resources/assets/js/build-survey-render.jsx`
+* `publish-survey-render.jsx` which renders the entire publish survey page is at `./resources/assets/js/publish-survey-render.jsx` 
+
  ```
- main-app.jsx
+ build-survey-render.jsx
  |_ SurveyBuilder (survey-builder.jsx)
       |_ Survey (survey.jsx)
            |_ Information (information.jsx)
