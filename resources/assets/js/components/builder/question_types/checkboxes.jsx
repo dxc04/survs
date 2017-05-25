@@ -6,22 +6,28 @@ import Button from 'react-bootstrap/lib/Button';
 export default class Checkboxes extends Component {
     constructor (props) {
         super(props);    
-
         this.state = {
-            checkboxes: _.isEmpty(this.props.checkboxes) 
+            question_details : {
+                options: _.isEmpty(this.props.details.options) 
                 ?  [
                     'Checkbox 1',
                     'Checkbox 2',
                     'Checkbox 3'
                 ]
-                : this.props.checkboxes
+                : this.props.details.options
+            }
         }
 
-        this.addCheckbox = this.addCheckbox.bind(this);
-        this.removeCheckbox = this.removeCheckbox.bind(this);
+        this.update = this.update.bind(this);
+        this.addOption = this.addOption.bind(this);
+        this.removeOption = this.removeOption.bind(this);
     }
 
-    addCheckbox (event) {
+    update () {
+        this.props.actions.update(this.state.question_details);
+    }
+
+    addOption (event) {
         const target = event.target;
         const new_val = target.value;
 
@@ -29,46 +35,50 @@ export default class Checkboxes extends Component {
             return null;
         }
         this.setState(function(prevState, props) {
-            prevState.checkboxes.push(new_val);
-            return {checkboxes: prevState.checkboxes};
+            prevState.question_details.options.push(new_val);
+            return {question_details: prevState.question_details};
         });
 
         target.value = '';
+
+        this.update();
     }
 
-    removeCheckbox (event) {
+    removeOption (event) {
         const target = event.target;
         this.setState(function(prevState, props) {
-            _.pullAt(prevState.checkboxes, target.value);
-            return {checkboxes: prevState.checkboxes};
+            _.pullAt(prevState.question_details.options, target.value);
+            return {question_details: prevState.question_details.options};
         });
+
+        this.update();
     }
 
     render () {
-        const checkboxes = this.state.checkboxes.map((label, index) => 
+        const options = this.state.question_details.options.map((label, index) => 
             <Checkbox key={index} disabled>
                 <FormControl
                     type="text"
-                    name={ 'checkbox-' + index + '-label'}
+                    name={ 'option-' + index + '-label'}
                     defaultValue={label}
                     bsClass="form-control"
                 />
-                <Button value={index} bsStyle="link" bsClass="btn btn-link link-circle" onClick={this.removeCheckbox}>
+                <Button value={index} bsStyle="link" bsClass="btn btn-link link-circle" onClick={this.removeOption}>
                 X
                 </Button>
             </Checkbox>
         );
         return (
             <div className="checkboxes-container">
-                {checkboxes}
-                <Checkbox key="add_checkbox" disabled>
+                {options}
+                <Checkbox key="add_option" disabled>
                     <FormControl
                         type="text"
-                        name="add_checkbox"
-                        placeholder="Add Checkbox"
+                        name="add_option"
+                        placeholder="Add Option"
                         bsClass="form-control"
-                        onBlur={this.addCheckbox}
-                        onKeyPress={this.addCheckbox}
+                        onBlur={this.addOption}
+                        onKeyPress={this.addOption}
                     />
                 </Checkbox>
             </div>
