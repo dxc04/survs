@@ -63,6 +63,8 @@ export default class SurveyBuilder extends Component {
             prevState.survey.questions[index] = question;
             return {survey : prevState.survey};
         });       
+
+        this.save();
     }
 
     onRemoveQuestion (id) {

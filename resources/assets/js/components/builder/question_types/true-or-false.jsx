@@ -5,20 +5,17 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 export default class TrueOrFalse extends Component {
     constructor (props) {
         super(props);    
-
         this.state = {
             question_details : {
-                options: _.isEmpty(this.props.details) 
-                ?  [
+                options: [
                     'True',
                     'False'
                 ]
-                : this.props.details.options
             }
         }
 
         this.update = this.update.bind(this);
-        this.updateOption = this.updateOption(this);
+        this.updateOption = this.updateOption.bind(this);
     }
 
     update () {
@@ -26,9 +23,14 @@ export default class TrueOrFalse extends Component {
     }
 
     updateOption (event) {
-        let target = event.target;
+        const target = event.target;
+        const new_val = target.value;
+
+        if ((event.type == 'blur' && _.isEmpty(new_val)) || (event.type == 'keypress' && event.charCode!=13)) {
+            return null;
+        }
         this.setState(function(prevState, props) {
-            prevState.question_details.options[target.name] = target.value;
+            prevState.question_details.options[target.name] = new_val;
             return {question_details: prevState.question_details};
         });
 
@@ -41,19 +43,21 @@ export default class TrueOrFalse extends Component {
                 <Radio disabled>
                     <FormControl
                         type="text"
-                        name="1"
+                        name="option_1"
                         defaultValue="True"
                         bsClass="form-control"
-                        onChange={this.updateOption}
+                        onBlur={this.updateOption}
+                        onKeyPress={this.updateOption}
                     />
                 </Radio>
                 <Radio disabled>
                     <FormControl
                         type="text"
-                        name="2"
+                        name="option_2"
                         defaultValue="False"
                         bsClass="form-control"
-                        onChange={this.updateOption}
+                        onBlur={this.updateOption}
+                        onKeyPress={this.updateOption}
                     />
                 </Radio>
             </div>
