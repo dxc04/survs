@@ -60,18 +60,23 @@ or
 * You can access the published survey using `survey/publish` route. Example. `http:://localhost/survey/publish`
 
 ### React Components
-<<<<<<< HEAD
 * All ReactJs components are located at `./resources/assets/js/components/`.
 * `build-survey-render.jsx` which renders the entire create survey page is at `./resources/assets/js/build-survey-render.jsx`
 * `publish-survey-render.jsx` which renders the entire publish survey page is at `./resources/assets/js/publish-survey-render.jsx` 
 
  ```
+ **Survey Create Components
  build-survey-render.jsx
  |_ SurveyBuilder (survey-builder.jsx)
       |_ Survey (survey.jsx)
            |_ Information (information.jsx)
            |_ Question (question.jsx)
                 |_ (Question Types Components - multiple_choice, checkboxes, etc.) 
+ ```
+ ```
+ **Survey Publish Components
+ build-survey-render.jsx
+ |_ SurveyPublisher (survey-builder.jsx)
  ```
  
  ### React Conventions
@@ -89,6 +94,7 @@ const survey = {
                id: 'question_1',
                type: 'multiple_choice',
                active: true,
+               question: 'What is your favorite pet?',
                details: { // any necessary data for the kind of question type
                     options: [
                         'Option 1',
@@ -100,6 +106,7 @@ const survey = {
                id: 'question_2',
                type: 'checkboxes',
                active: false, // there should be one active question, this will be use which question is currently being edited
+               question: '1+1?',
                details: {
                     options: [
                         'Option 1',
