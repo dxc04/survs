@@ -11,8 +11,9 @@ export default class Information extends Component {
     }
 
     handleChange (event) {
+        let name = event.target.value;
         this.setState({
-           [name]: event.target.value,
+           [name]: event.target.value
         });
     }
 

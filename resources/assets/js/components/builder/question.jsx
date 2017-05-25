@@ -15,12 +15,23 @@ export default class Question extends Component {
     constructor (props) {
         super(props);
 
+        this.state = {
+            question: this.props.question
+        }
+
         this.template = this.template.bind(this);
+        this.update = this.update.bind(this);
         this.remove = this.remove.bind(this);
         this.duplicate = this.duplicate.bind(this);
         this.active = this.active.bind(this);
         this.focus = this.focus.bind(this);
+        this.updateTitle = this.updateTitle.bind(this);
+        this.updateDetails = this.updateDetails.bind(this);
         this.updateType = this.updateType.bind(this);
+    }
+
+    update () {
+        this.props.actions.update(this.props.id, this.state.question);
     }
 
     duplicate () {
@@ -45,27 +56,48 @@ export default class Question extends Component {
 
     updateType (event) {
         const target = event.target;
-        this.props.actions.updateType(this.props.id, target.value);    
+        this.setState(function(prevState, props) {
+            prevState.question.type = target.value;
+            return {question: prevState.question};
+        });
+
+        this.update();
     } 
 
-    template (question) {
+    updateTitle (event) {
+        const target = event.target;
+        this.setState(function(prevState, props) {
+            prevState.question.question = target.value;
+            return {question: prevState.question};
+        });
+
+        this.update();
+    }
+
+    updateDetails (question_details) {
+        this.setState(function(prevState, props) {
+            prevState.question.details = question_details;
+            return {question: prevState.question};
+        });
+
+        this.update();
+    }
+
+    template () {
+        var question = this.props.question;
         switch (question.type) {
             case 'multiple_choice' :
-                return <MultipleChoice 
-                            options={_.isEmpty(question.details.options) ? [] : question.details.options}
-                        />; 
+                return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
             case 'checkboxes' :
                 return; 
             case 'true_or_false' : 
-                return <TrueOrFalse />;
+                return <TrueOrFalse details={{}} actions={{update: this.updateDetails}} />;
             case 'short_answer' :
                 return <ShortAnswer />; 
             case 'paragraph' :
                 return <Paragraph />;
             default :
-                return <MultipleChoice 
-                            options={_.isEmpty(question.details.options) ? [] : question.details.options}
-                        />; 
+                return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
         }
     }
 
@@ -80,9 +112,11 @@ export default class Question extends Component {
                         name="question"
                         placeholder="Question"
                         className="input-title-lg"
+                        defaultValue={this.state.question.question}
+                        onChange={this.updateTitle}
                     />
                     <br />
-                    {this.template(this.props.question)}
+                    {this.template()}
                 </div>
                 <div className="panel-footer">
                         <div className="row">
