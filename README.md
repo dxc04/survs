@@ -59,7 +59,7 @@ or
 * You can access "Create Survey" using `survey/create` route. Example. `http://localhost/survey/create`
 
 ### React Components
-* All ReactJs are located at `./resources/assets/js/components/`.
+* All ReactJs components are located at `./resources/assets/js/components/`.
 * `main-app.jsx` which renders the entire app is at `./resources/assets/js/main-app.jsx` 
  ```
  main-app.jsx
