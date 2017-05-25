@@ -18,6 +18,7 @@ export default class SurveyBuilder extends Component {
 
         this.save = this.save.bind(this);
         this.onAddQuestion = this.onAddQuestion.bind(this);
+        this.onUpdateQuestion = this.onUpdateQuestion.bind(this);
         this.onDuplicateQuestion = this.onDuplicateQuestion.bind(this);
         this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
         this.onActiveQuestion = this.onActiveQuestion.bind(this);
@@ -35,6 +36,7 @@ export default class SurveyBuilder extends Component {
                 id: new_id,
                 type: 'multiple_choice',
                 active: true,
+                question: '',
                 details: {
                     options: [
                         'Option 1',
@@ -51,6 +53,16 @@ export default class SurveyBuilder extends Component {
         if (!_.isEmpty(this.state.questions)) {
             document.getElementById("survey-questions").lastElementChild.scrollIntoView({block: "end", behavior: "smooth"});
         }
+
+        this.save();
+    }
+
+    onUpdateQuestion (id, question) {
+        const index = _.findIndex(this.state.survey.questions, ['id', id]);
+        this.setState(function(prevState, props) {
+            prevState.survey.questions[index] = question;
+            return {survey : prevState.survey};
+        });       
 
         this.save();
     }
@@ -114,7 +126,7 @@ export default class SurveyBuilder extends Component {
                     remove: this.onRemoveQuestion,
                     duplicate: this.onDuplicateQuestion,
                     active: this.onActiveQuestion,
-                    updateType: this.onUpdateQuestionType
+                    update: this.onUpdateQuestion
                 }}
                 question={question}
                 question_types = {this.props.question_types}

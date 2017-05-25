@@ -18,11 +18,12 @@ class SurveyController extends Controller
                     'id' => 'question_1',
                     'type' => 'multiple_choice',
                     'active' => true,
+                    'question' => 'What is your favorite pet?',
                     'details' => [
                         'options' => [
-                            'Option 1',
-                            'Option 2',
-                            'Option 3'
+                            'Dog',
+                            'Cat',
+                            'Turtle'
                         ],
                     ],
                 ],
@@ -48,14 +49,15 @@ class SurveyController extends Controller
     public function publish($survey_id)
     {
         $survey = [
-            'id' => 'new',
+            'id' => 'id',
             'title' => 'Untitled Survey',
-            'description' => '',
+            'description' => 'This is a survey.',
             'questions' => [
                 [
                     'id' => 'question_1',
                     'type' => 'multiple_choice',
                     'active' => true,
+                    'question' => 'What is your favorite pet?',
                     'details' => [
                         'options' => [
                             'Option 1',

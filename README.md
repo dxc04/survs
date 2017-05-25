@@ -60,7 +60,8 @@ or
 * You can access the published survey using `survey/publish` route. Example. `http:://localhost/survey/publish`
 
 ### React Components
-* All ReactJs are located at `./resources/assets/js/components/`.
+<<<<<<< HEAD
+* All ReactJs components are located at `./resources/assets/js/components/`.
 * `build-survey-render.jsx` which renders the entire create survey page is at `./resources/assets/js/build-survey-render.jsx`
 * `publish-survey-render.jsx` which renders the entire publish survey page is at `./resources/assets/js/publish-survey-render.jsx` 
 

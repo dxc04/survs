@@ -6,19 +6,25 @@ import Button from 'react-bootstrap/lib/Button';
 export default class MultipleChoice extends Component {
     constructor (props) {
         super(props);    
-
         this.state = {
-            options: _.isEmpty(this.props.options) 
+            question_details : {
+                options: _.isEmpty(this.props.details.options) 
                 ?  [
                     'Option 1',
                     'Option 2',
                     'Option 3'
                 ]
-                : this.props.options
+                : this.props.details.options
+            }
         }
 
+        this.update = this.update.bind(this);
         this.addOption = this.addOption.bind(this);
         this.removeOption = this.removeOption.bind(this);
+    }
+
+    update () {
+        this.props.actions.update(this.state.question_details);
     }
 
     addOption (event) {
@@ -29,23 +35,27 @@ export default class MultipleChoice extends Component {
             return null;
         }
         this.setState(function(prevState, props) {
-            prevState.options.push(new_val);
-            return {options: prevState.options};
+            prevState.question_details.options.push(new_val);
+            return {question_details: prevState.question_details};
         });
 
         target.value = '';
+
+        this.update();
     }
 
     removeOption (event) {
         const target = event.target;
         this.setState(function(prevState, props) {
-            _.pullAt(prevState.options, target.value);
-            return {options: prevState.options};
+            _.pullAt(prevState.question_details.options, target.value);
+            return {question_details: prevState.question_details.options};
         });
+
+        this.update();
     }
 
     render () {
-        const options = this.state.options.map((label, index) => 
+        const options = this.state.question_details.options.map((label, index) => 
             <Radio key={index} disabled>
                 <FormControl
                     type="text"
