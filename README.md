@@ -75,16 +75,18 @@ or
  ```
  ```
  **Survey Publish Components
- build-survey-render.jsx
- |_ SurveyPublisher (survey-builder.jsx)
+ publish-survey-render.jsx
+ |_ SurveyPublisher (survey-publisher.jsx)
  ```
  
  ### React Conventions
  * File names are all lower case and hyphen separated. Component name is then `UpperCamelCase` Example. `survey.jsx` -> `Survey` , `survey-builder.jsx` -> `SurveyBuilder`
- * All components must recide at `./resources/assets/js/components/`. Create new folders in `components` folder if necessary. `question_types` folder is already created to hold components for different question types.
+ * All components must reside at `./resources/assets/js/components/`. Create new folders in `components` folder if necessary. `question_types` folder is already created to hold components for different question types.
  
  ### Survey Component Data Structure
- We need to pass certain data to create a survey. The following is the current example data structure for survey creation
+ We need to pass certain data to create or publish a survey. The following is the current example data structure for survey creation. 
+ ** question types are not necessary for publishing a survey.
+
  ``` 
 const survey = {
     title: '',
