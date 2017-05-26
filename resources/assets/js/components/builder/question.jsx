@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 
 import MultipleChoice from './question_types/multiple-choice';
+import Checkboxes from './question_types/checkboxes';
 import TrueOrFalse from './question_types/true-or-false';
 import ShortAnswer from './question_types/short-answer';
 import Paragraph from './question_types/paragraph';
@@ -88,7 +89,7 @@ export default class Question extends Component {
             case 'multiple_choice' :
                 return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
             case 'checkboxes' :
-                return; 
+                return  <Checkboxes details={question.details} actions={{update: this.updateDetails}}/>; 
             case 'true_or_false' : 
                 return <TrueOrFalse details={{}} actions={{update: this.updateDetails}} />;
             case 'short_answer' :
