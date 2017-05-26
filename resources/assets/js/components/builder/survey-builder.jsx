@@ -17,6 +17,7 @@ export default class SurveyBuilder extends Component {
         };
 
         this.save = this.save.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
         this.onAddQuestion = this.onAddQuestion.bind(this);
         this.onUpdateQuestion = this.onUpdateQuestion.bind(this);
         this.onDuplicateQuestion = this.onDuplicateQuestion.bind(this);
@@ -27,6 +28,16 @@ export default class SurveyBuilder extends Component {
 
     save () {
         this.api.save(this.state.survey);
+    }
+
+    onUpdate (data) {
+        this.setState(function(prevState, props) {
+            prevState.survey.title = data.title;
+            prevState.survey.description = data.description;
+            return {survey: prevState.survey};
+        });
+
+        this.save();
     }
 
     onAddQuestion () {
@@ -49,10 +60,6 @@ export default class SurveyBuilder extends Component {
         });
 
         this.onActiveQuestion(new_id);
-
-        if (!_.isEmpty(this.state.questions)) {
-            document.getElementById("survey-questions").lastElementChild.scrollIntoView({block: "end", behavior: "smooth"});
-        }
 
         this.save();
     }
@@ -138,7 +145,7 @@ export default class SurveyBuilder extends Component {
         const children = this.buildQuestions();
         return (
             <Survey survey={this.props.survey.questions} addQuestion={this.onAddQuestion}>
-                <Information title={this.props.survey.title} description={this.props.survey.description} />
+                <Information title={this.props.survey.title} description={this.props.survey.description} actions={{ update: this.onUpdate}}/>
                 <div id="survey-questions">
                     {children}
                 </div>

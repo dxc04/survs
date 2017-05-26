@@ -7,13 +7,30 @@ export default class Information extends Component {
     constructor (props) {
         super(props);    
 
-        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            title: this.props.title,
+            description: this.props.description
+        }
+
+        this.update = this.update.bind(this);
     }
 
-    handleChange (event) {
-        let name = event.target.value;
-        this.setState({
-           [name]: event.target.value
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.title !== prevState.title || this.state.description !== prevState.description) {
+            this.props.actions.update(this.state);
+        }
+    }
+
+    update (event) {
+        const target = event.target;
+
+        if ((event.type == 'blur' && _.isEmpty(target.value)) || (event.type == 'keypress' && event.charCode != 13)) {
+            return null;
+        }
+
+        this.setState(function(prevState, props) {
+            prevState[target.name] = target.value;
+            return prevState.survey;
         });
     }
 
@@ -32,11 +49,12 @@ export default class Information extends Component {
                 >
                     <FormControl
                         type="text"
-                        name="survey_title"
-                        value={this.props.title}
+                        name="title"
+                        defaultValue={this.state.title}
                         placeholder="Survey Title"
                         className="input-title-lg"
-                        onChange={this.handleChange}
+                        onBlur={this.update}
+                        onKeyPress={this.update}
                     />
                     <FormControl.Feedback />
                     <HelpBlock></HelpBlock>
@@ -46,9 +64,10 @@ export default class Information extends Component {
                     <FormControl
                         componentClass="textarea"
                         name="description"
-                        value={this.props.description}
+                        defaultValue={this.state.description}
                         placeholder="Description"
-                        onChange={this.handleChange}
+                        onBlur={this.update}
+                        onKeyPress={this.update}
                     />
                     <FormControl.Feedback />
                 </FormGroup>
