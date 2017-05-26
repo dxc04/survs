@@ -1,5 +1,7 @@
 const { mix } = require('laravel-mix');
 
+/* @todo: Basic configuration to run react, add styling and send request. We could still apply assets library from setup_assets_library branch*/
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

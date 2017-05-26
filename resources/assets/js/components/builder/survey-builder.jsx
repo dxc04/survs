@@ -144,7 +144,7 @@ export default class SurveyBuilder extends Component {
     render () {
         const children = this.buildQuestions();
         return (
-            <Survey survey={this.props.survey.questions} addQuestion={this.onAddQuestion}>
+            <Survey actions={{addQuestion: this.onAddQuestion}} >
                 <Information title={this.props.survey.title} description={this.props.survey.description} actions={{ update: this.onUpdate}}/>
                 <div id="survey-questions">
                     {children}

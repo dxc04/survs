@@ -24,7 +24,6 @@ export default class Question extends Component {
         this.remove = this.remove.bind(this);
         this.duplicate = this.duplicate.bind(this);
         this.active = this.active.bind(this);
-        this.focus = this.focus.bind(this);
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDetails = this.updateDetails.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -47,11 +46,6 @@ export default class Question extends Component {
            return null;    
         }
         this.props.actions.active(this.props.id);    
-        this.focus(this.props.id);
-    }
-
-    focus (id) {
-        ReactDOM.findDOMNode(this.refs[id]).scrollIntoView({block: "end", behavior: "smooth"});
     }
 
     updateType (event) {
@@ -66,6 +60,11 @@ export default class Question extends Component {
 
     updateTitle (event) {
         const target = event.target;
+
+        if ((event.type == 'blur' && _.isEmpty(target.value)) || (event.type == 'keypress' && event.charCode != 13)) {
+            return null;
+        }
+
         this.setState(function(prevState, props) {
             prevState.question.question = target.value;
             return {question: prevState.question};
@@ -113,7 +112,8 @@ export default class Question extends Component {
                         placeholder="Question"
                         className="input-title-lg"
                         defaultValue={this.state.question.question}
-                        onChange={this.updateTitle}
+                        onBlur={this.updateTitle}
+                        onKeyPress={this.updateTitle}
                     />
                     <br />
                     {this.template()}

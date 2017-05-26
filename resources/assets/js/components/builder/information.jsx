@@ -30,7 +30,7 @@ export default class Information extends Component {
 
         this.setState(function(prevState, props) {
             prevState[target.name] = target.value;
-            return prevState.survey;
+            return prevState;
         });
     }
 

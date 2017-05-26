@@ -8,18 +8,16 @@ export default class Survey extends Component {
     }
 
     componentDidMount() {
-        if (_.isEmpty(this.props.survey.questions)) {
-            this.$btn = $(this.addBtn);
-            this.$btn.tooltip({
-                content: 'Click to add new question.',
-                placement: 'left'
-            });
-            this.$btn.tooltip('show');
-        }
+        this.$btn = $(this.addBtn);
+        this.$btn.tooltip({
+            content: 'Click to add new question.',
+            placement: 'left'
+        });
+        this.$btn.tooltip('show');
     }
 
     addQuestion() {
-        this.props.addQuestion();
+        this.props.actions.addQuestion();
         this.$btn.tooltip('destroy');
     }
 
