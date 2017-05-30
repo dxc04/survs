@@ -25,25 +25,28 @@ test:
 	vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 migrate:
-	docker-compose exec --user www-data php ./bin/console doc:mig:mig -n
+	docker-compose --project-name surveys exec --user www-data php ./bin/console doc:mig:mig -n
 
 diff:
-	docker-compose exec php ./bin/console doc:mig:diff
+	docker-compose --project-name surveys exec php ./bin/console doc:mig:diff
 
 cc:
-	docker-compose exec --user www-data php ./bin/console redis:flushall -n && docker-compose exec php rm -rvf var/cache/*
+	docker-compose --project-name surveys exec --user www-data php ./bin/console redis:flushall -n && docker-compose --project-name surveys exec php rm -rvf var/cache/*
 
 bash:
-	docker-compose exec php /bin/bash
+	docker-compose --project-name surveys exec php /bin/bash
+
+bashdev:
+	docker-compose --project-name=surveys exec --user=illuminator workspace /bin/bash
 
 network:
 	docker network create $(NS)
 
 build:
-	docker build -f ./docker/container/php-fpm/Dockerfile -t quay.io/$(NS)/$(REPO):$(VERSION) .
+	docker build -f ./docker/php-fpm/Dockerfile -t quay.io/$(NS)/$(REPO):$(VERSION) .
 
 tag:
-	docker tag -f ./docker/container/php-fpm/Dockerfile quay.io/$(NS)/$(REPO):$(VERSION) quay.io/$(NS)/$(REPO):$(BRANCH)
+	docker tag -f ./docker/php-fpm/Dockerfile quay.io/$(NS)/$(REPO):$(VERSION) quay.io/$(NS)/$(REPO):$(BRANCH)
 
 push:
 	docker push quay.io/$(NS)/$(REPO):$(VERSION)
@@ -76,6 +79,3 @@ release: build
 	make push -e VERSION=$(VERSION)
 
 default: build
-
-devssh:
-	docker exec -it --user illuminator surveys_workspace_1 /bin/bash

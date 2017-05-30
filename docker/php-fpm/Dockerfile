@@ -74,21 +74,23 @@ RUN if [ ${BUILD_ENV} = 'dev' ]; then \
 
 # Copy files to container
 USER root
-COPY ./docker-entrypoint.sh /
-COPY ./www.conf.${BUILD_ENV} /usr/local/etc/php-fpm.d/www.conf
+COPY ./docker/php-fpm/docker-entrypoint.sh /
+COPY ./docker/php-fpm/www.conf.${BUILD_ENV} /usr/local/etc/php-fpm.d/www.conf
 
 # Setup App
-#USER root
-#RUN mkdir -p /var/www/service
-#VOLUME /var/www/service
+USER root
+RUN mkdir -p /var/www/service
+VOLUME /var/www/service
+
 WORKDIR /var/www/service
-#COPY . ./
-#RUN chgrp -R www-data \
-#        /var/www/service/storage \
-#        /var/www/service/bootstrap/cache \
-#    && chmod -R ug+rwx \
-#        /var/www/service/storage \
-#        /var/www/service/bootstrap/cache
+
+COPY . ./
+RUN chgrp -R www-data \
+        /var/www/service/storage \
+        /var/www/service/bootstrap/cache \
+    && chmod -R ug+rwx \
+        /var/www/service/storage \
+        /var/www/service/bootstrap/cache
 
 # Clean up
 USER root

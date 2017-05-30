@@ -13,9 +13,10 @@ services:
         
   php:
     build:
-      context: ./docker/php-fpm
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
     depends_on:
+      - app
       - mongo
     volumes_from:
       - app
