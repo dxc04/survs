@@ -17,27 +17,24 @@ export BRANCH := ${BRANCH}
 
 .PHONY: dep test migrate build tag push compose shell run start stop rm release
 
-dep:
-	composer install -n
-	npm install
+init: composer fixperm
+
+dep: composer
 
 test:
 	vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 migrate:
-	docker-compose --project-name surveys exec --user www-data php ./bin/console doc:mig:mig -n
+	docker-compose -p surveys exec --user www-data php ./bin/console doc:mig:mig -n
 
 diff:
-	docker-compose --project-name surveys exec php ./bin/console doc:mig:diff
+	docker-compose -p surveys exec php ./bin/console doc:mig:diff
 
 cc:
-	docker-compose --project-name surveys exec --user www-data php ./bin/console redis:flushall -n && docker-compose --project-name surveys exec php rm -rvf var/cache/*
+	docker-compose -p surveys run --user www-data php ./bin/console redis:flushall -n && docker-compose -p surveys run php artisan cache:clear
 
 bash:
-	docker-compose --project-name surveys exec php /bin/bash
-
-bashdev:
-	docker-compose --project-name=surveys exec --user=illuminator workspace /bin/bash
+	docker-compose -p surveys exec php /bin/bash
 
 network:
 	docker network create $(NS)
@@ -53,10 +50,11 @@ push:
 	docker push quay.io/$(NS)/$(REPO):$(BRANCH)
 
 compose:
-	docker-compose --project-name=surveys up --build --force-recreate
+	docker-compose -p=surveys up --build --force-recreate app mongo php nginx
 
 composedie:
-	docker-compose --project-name=surveys rm
+	docker-compose -p surveys stop app mongo php nginx
+	docker-compose -p surveys rm app mongo php nginx
 
 rebuild: composedie compose
 
@@ -75,13 +73,35 @@ stop:
 rm:
 	docker rm $(NAME)-$(INSTANCE)
 
-release: build
+: build
 	make push -e VERSION=$(VERSION)
 
 default: build
 
 fixperm:
-	docker-compose --project-name surveys exec php chgrp -R www-data ./storage ./bootstrap/cache && chmod -R ug+rwx ./storage ./bootstrap/cache
+	docker-compose -p surveys run --rm --no-deps php chgrp -R www-data ./storage ./bootstrap/cache && chmod -R ug+rwx ./storage ./bootstrap/cache
 
-composerdev:
-	docker-compose --project-name surveys exec --user illuminator workspace composer install
+composer:
+	docker-compose -p surveys run --rm --no-deps -u illuminator workspace composer install -n
+
+dev-load-env:
+	cp .env.dev .env
+	cp docker-compose.override.yml.dev docker-compose.override.yml
+
+dev-init: dev-load-env init compose-workspace
+
+dev-dep: composer
+
+#dev-yarn:
+#	docker-compose -p surveys run --rm --no-deps -u illuminator workspace yarn install --non-interactive
+
+dev-bash:
+	docker-compose -p surveys exec --user illuminator workspace /bin/bash
+
+compose-workspace:
+	docker-compose -p=surveys up -d --build --force-recreate workspace
+
+composedie-workspace:
+	docker-compose -p surveys stop workspace
+	docker-compose -p surveys rm workspace
+
