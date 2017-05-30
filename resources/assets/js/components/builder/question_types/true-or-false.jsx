@@ -8,11 +8,11 @@ export default class TrueOrFalse extends Component {
         this.state = {
             question_details : {
                 options: _.isEmpty(this.props.details.options)
-		? [
+                    ? [
                     'True',
                     'False'
-                ]
-		: this.props.details.options
+                    ]
+                    : this.props.details.options
             }
         }
 
@@ -44,7 +44,7 @@ export default class TrueOrFalse extends Component {
                 <Radio disabled>
                     <FormControl
                         data-option_index="0"
-			type="text"
+			            type="text"
                         name="option_1"
                         defaultValue={this.state.question_details.options[0]}
                         bsClass="form-control"
@@ -55,7 +55,7 @@ export default class TrueOrFalse extends Component {
                 <Radio disabled>
                     <FormControl
                         data-option_index="1"
-			type="text"
+			            type="text"
                         name="option_2"
                         defaultValue={this.state.question_details.options[1]}
                         bsClass="form-control"

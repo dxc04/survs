@@ -9,19 +9,19 @@ export default class Checkboxes extends Component {
         this.state = {
             question_details : {
                 options: _.isEmpty(this.props.details.options) 
-                ?  [
+                    ?  [
                     'Checkbox 1',
                     'Checkbox 2',
                     'Checkbox 3'
-                ]
-                : this.props.details.options
+                    ]
+                    : this.props.details.options
             }
         }
 
         this.update = this.update.bind(this);
         this.addOption = this.addOption.bind(this);
         this.updateOption = this.updateOption.bind(this);
-	this.removeOption = this.removeOption.bind(this);
+        this.removeOption = this.removeOption.bind(this);
     }
 
     update () {
@@ -76,11 +76,11 @@ export default class Checkboxes extends Component {
                 <FormControl
                     type="text"
                     name={ 'option-' + index + '-label'}
-		    data-option_index={index}
-		    defaultValue={label}
+            data-option_index={index}
+            defaultValue={label}
                     bsClass="form-control"
-		    onBlur={this.updateOption}
-		    onKeyPress={this.updateOption}
+            onBlur={this.updateOption}
+            onKeyPress={this.updateOption}
                 />
                 <Button value={index} bsStyle="link" bsClass="btn btn-link link-circle" onClick={this.removeOption}>
                 X

@@ -13,6 +13,7 @@ import ShortAnswer from './question_types/short-answer';
 import Paragraph from './question_types/paragraph';
 import Scale from './question_types/scale';
 
+
 export default class Question extends Component {
     constructor (props) {
         super(props);
@@ -29,17 +30,17 @@ export default class Question extends Component {
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDetails = this.updateDetails.bind(this);
         this.updateType = this.updateType.bind(this);
-	this.updateIsRequired = this.updateIsRequired.bind(this);
+        this.updateIsRequired = this.updateIsRequired.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.question.type !== prevState.question.type) {
-	    this.update();
+            this.update();
         }
     }
 
     update () {
-	this.props.actions.update(this.props.id, this.state.question);
+        this.props.actions.update(this.props.id, this.state.question);
     }
 
     duplicate () {
@@ -52,7 +53,7 @@ export default class Question extends Component {
 
     active (event) {
         if (event.target.dataset.duplicate) {
-           return null;    
+            return null;    
         }
         this.props.actions.active(this.props.id);    
     }
@@ -62,7 +63,7 @@ export default class Question extends Component {
         this.setState(function(prevState, props) {
             prevState.question.type = target.value;
             prevState.question.details = [];
-	    return {question: prevState.question};
+            return {question: prevState.question};
         });
         this.update();
     } 
@@ -83,20 +84,20 @@ export default class Question extends Component {
     }
 
     updateDetails (question_details) {
-	this.setState(function(prevState, props) {
+        this.setState(function(prevState, props) {
             prevState.question.details = question_details;
-	    return {question: prevState.question};
+            return {question: prevState.question};
         });
         this.update();
     }
 
     updateIsRequired (event) {
-    	const target = event.target;
-	this.setState(function(prevState, props) {
-	    prevState.question.is_required = target.checked;
+        const target = event.target;
+        this.setState(function(prevState, props) {
+            prevState.question.is_required = target.checked;
             return {question: prevState.question}
-	});
-	this.update();
+        });
+        this.update();
     }
 
     template () {
@@ -113,7 +114,7 @@ export default class Question extends Component {
             case 'paragraph' :
                 return <Paragraph />;
             case 'scale' :
-		return <Scale details={question.details} actions={{update: this.updateDetails}} />;
+                return <Scale details={question.details} actions={{update: this.updateDetails}} />;
             default :
                 return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
         }
@@ -122,7 +123,7 @@ export default class Question extends Component {
     render () {
         const panel_class = 'panel panel-default ' + (this.props.question.active ? 'panel-active' : ''); 
 
-	return (
+	    return (
             <div ref={this.props.question.id} className={panel_class} onClick={this.active}>
                 <div className="panel-body">
                     <div className="pull-right question-number">{this.props.label}</div>
@@ -139,32 +140,32 @@ export default class Question extends Component {
                     {this.template()}
                 </div>
                 <div className="panel-footer">
-                        <div className="row">
-                            <div className="col-md-4">
-                                <ButtonToolbar>
-                                    <Button bsStyle="default" data-duplicate bsSize="small" onClick={this.duplicate}>
-                                        <i data-duplicate className="fa fa-files-o duplicate-ctrl"></i>
-                                    </Button>
-                                    <Button bsStyle="default" bsSize="small" onClick={this.remove}>
-                                        <i className="fa fa-trash"></i>
-                                    </Button>
-                                </ButtonToolbar>
-                            </div>
-                            <div className="col-md-4 col-md-offset-4">
-                                <div className="row">
-                                    <div className="col-md-8">
-                                        <FormControl defaultValue={this.state.question.type} componentClass="select" placeholder="Question Type" onChange={this.updateType}>
-                                            {_.map(this.props.question_types, (t,i) => <option key={i} value={i}>{t}</option>)}
-                                        </FormControl>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <Checkbox name="isRequired" defaultChecked={this.state.question.is_required} onChange={this.updateIsRequired}>
-                                            Required
-                                        </Checkbox>
-                                    </div>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <ButtonToolbar>
+                                <Button bsStyle="default" data-duplicate bsSize="small" onClick={this.duplicate}>
+                                    <i data-duplicate className="fa fa-files-o duplicate-ctrl"></i>
+                                </Button>
+                                <Button bsStyle="default" bsSize="small" onClick={this.remove}>
+                                    <i className="fa fa-trash"></i>
+                                </Button>
+                            </ButtonToolbar>
+                        </div>
+                        <div className="col-md-4 col-md-offset-4">
+                            <div className="row">
+                                <div className="col-md-8">
+                                    <FormControl defaultValue={this.state.question.type} componentClass="select" placeholder="Question Type" onChange={this.updateType}>
+                                        {_.map(this.props.question_types, (t,i) => <option key={i} value={i}>{t}</option>)}
+                                    </FormControl>
+                                </div>
+                                <div className="col-md-4">
+                                    <Checkbox name="isRequired" defaultChecked={this.state.question.is_required} onChange={this.updateIsRequired}>
+                                        Required
+                                    </Checkbox>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         );          

@@ -9,18 +9,18 @@ export default class MultipleChoice extends Component {
         this.state = {
             question_details : {
                 options: _.isEmpty(this.props.details.options) 
-                ?  [
+                    ?  [
                     'Option 1',
                     'Option 2',
                     'Option 3'
-                ]
-                : this.props.details.options
+                    ]
+                    : this.props.details.options
             }
         }
 
         this.update = this.update.bind(this);
- 	this.updateOption = this.updateOption.bind(this);
-	this.addOption = this.addOption.bind(this);
+        this.updateOption = this.updateOption.bind(this);
+        this.addOption = this.addOption.bind(this);
         this.removeOption = this.removeOption.bind(this);
     }
 
@@ -46,14 +46,14 @@ export default class MultipleChoice extends Component {
     }
 
     updateOption (event) {
-    	const target = event.target;
+        const target = event.target;
         const new_val = target.value;
 
         if ((event.type == 'blur' && _.isEmpty(new_val)) || (event.type == 'keypress' && event.charCode!=13)) {
             return null;
         }
         this.setState(function(prevState, props) {
-	    prevState.question_details.options[target.dataset.option_index] = new_val;
+            prevState.question_details.options[target.dataset.option_index] = new_val;
             return {question_details: prevState.question_details};
         });
 
@@ -75,15 +75,15 @@ export default class MultipleChoice extends Component {
             <Radio key={index} disabled>
                 <FormControl
                     data-option_index={index}
-		    type="text"
+		            type="text"
                     name={ 'option-' + index + '-label'}
                     defaultValue={label}
                     bsClass="form-control"
-		    onBlur={this.updateOption}
+		            onBlur={this.updateOption}
                     onKeyPress={this.updateOption}
                 />
                 <Button value={index} bsStyle="link" bsClass="btn btn-link link-circle" onClick={this.removeOption}>
-                X
+                    X
                 </Button>
             </Radio>
         );
