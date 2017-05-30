@@ -79,3 +79,9 @@ release: build
 	make push -e VERSION=$(VERSION)
 
 default: build
+
+fixperm:
+	docker-compose --project-name surveys exec php chgrp -R www-data ./storage ./bootstrap/cache && chmod -R ug+rwx ./storage ./bootstrap/cache
+
+composerdev:
+	docker-compose --project-name surveys exec --user illuminator workspace composer install
