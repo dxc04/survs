@@ -1,0 +1,22 @@
+## Override configuration for development environment
+version: "2"
+services:            
+  workspace:
+    build:
+      context: ./docker/workspace
+      dockerfile: Dockerfile     
+    volumes_from:
+      - app
+
+  php:
+    build:
+      args:
+        - BUILD_ENV=dev
+    depends_on:
+      - mongo
+      - workspace
+
+  nginx:
+    ports:
+      - "80:80"
+

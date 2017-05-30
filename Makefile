@@ -50,10 +50,10 @@ push:
 	docker push quay.io/$(NS)/$(REPO):$(BRANCH)
 
 compose:
-	docker-compose --project-name surveys --file ./docker/docker-compose.yml up --build --force-recreate
+	docker-compose --project-name=surveys up --build --force-recreate
 
 composedie:
-	docker-compose --project-name=surveys --file ./docker/docker-compose.yml rm
+	docker-compose --project-name=surveys rm
 
 rebuild: composedie compose
 
@@ -76,3 +76,6 @@ release: build
 	make push -e VERSION=$(VERSION)
 
 default: build
+
+devssh:
+	docker exec -it --user illuminator surveys_workspace_1 /bin/bash
