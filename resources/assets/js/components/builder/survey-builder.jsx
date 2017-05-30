@@ -48,6 +48,7 @@ export default class SurveyBuilder extends Component {
                 type: 'multiple_choice',
                 active: true,
                 question: '',
+                is_required: false,
                 details: {
                     options: [
                         'Option 1',
@@ -77,7 +78,7 @@ export default class SurveyBuilder extends Component {
     onRemoveQuestion (id) {
         this.setState(function(prevState, props) {
             const questions = _.remove(prevState.survey.questions, (n) => {
-                    return id != n.id;    
+                return id != n.id;    
             });
             prevState.survey.questions = questions;
             return {survey : prevState.survey};
@@ -110,7 +111,7 @@ export default class SurveyBuilder extends Component {
             _.each(prevState.survey.questions, (value, key) => {
                 prevState.survey.questions[key].active = (value.id == id);   
             });
-            
+
             return {survey: prevState.survey};
         });
     }

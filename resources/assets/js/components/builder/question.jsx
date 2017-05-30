@@ -11,6 +11,8 @@ import Checkboxes from './question_types/checkboxes';
 import TrueOrFalse from './question_types/true-or-false';
 import ShortAnswer from './question_types/short-answer';
 import Paragraph from './question_types/paragraph';
+import Scale from './question_types/scale';
+
 
 export default class Question extends Component {
     constructor (props) {
@@ -28,6 +30,7 @@ export default class Question extends Component {
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDetails = this.updateDetails.bind(this);
         this.updateType = this.updateType.bind(this);
+        this.updateIsRequired = this.updateIsRequired.bind(this);
     }
 
     update () {
@@ -44,7 +47,7 @@ export default class Question extends Component {
 
     active (event) {
         if (event.target.dataset.duplicate) {
-           return null;    
+            return null;    
         }
         this.props.actions.active(this.props.id);    
     }
@@ -53,9 +56,9 @@ export default class Question extends Component {
         const target = event.target;
         this.setState(function(prevState, props) {
             prevState.question.type = target.value;
+            prevState.question.details = [];
             return {question: prevState.question};
         });
-
         this.update();
     } 
 
@@ -79,7 +82,15 @@ export default class Question extends Component {
             prevState.question.details = question_details;
             return {question: prevState.question};
         });
+        this.update();
+    }
 
+    updateIsRequired (event) {
+        const target = event.target;
+        this.setState(function(prevState, props) {
+            prevState.question.is_required = target.checked;
+            return {question: prevState.question}
+        });
         this.update();
     }
 
@@ -91,11 +102,13 @@ export default class Question extends Component {
             case 'checkboxes' :
                 return  <Checkboxes details={question.details} actions={{update: this.updateDetails}}/>; 
             case 'true_or_false' : 
-                return <TrueOrFalse details={{}} actions={{update: this.updateDetails}} />;
+                return <TrueOrFalse details={question.details} actions={{update: this.updateDetails}} />;
             case 'short_answer' :
                 return <ShortAnswer />; 
             case 'paragraph' :
                 return <Paragraph />;
+            case 'scale' :
+                return <Scale details={question.details} actions={{update: this.updateDetails}} />;
             default :
                 return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
         }
@@ -103,7 +116,8 @@ export default class Question extends Component {
 
     render () {
         const panel_class = 'panel panel-default ' + (this.props.question.active ? 'panel-active' : ''); 
-        return (
+
+	    return (
             <div ref={this.props.question.id} className={panel_class} onClick={this.active}>
                 <div className="panel-body">
                     <div className="pull-right question-number">{this.props.label}</div>
@@ -120,32 +134,32 @@ export default class Question extends Component {
                     {this.template()}
                 </div>
                 <div className="panel-footer">
-                        <div className="row">
-                            <div className="col-md-4">
-                                <ButtonToolbar>
-                                    <Button bsStyle="default" data-duplicate bsSize="small" onClick={this.duplicate}>
-                                        <i data-duplicate className="fa fa-files-o duplicate-ctrl"></i>
-                                    </Button>
-                                    <Button bsStyle="default" bsSize="small" onClick={this.remove}>
-                                        <i className="fa fa-trash"></i>
-                                    </Button>
-                                </ButtonToolbar>
-                            </div>
-                            <div className="col-md-4 col-md-offset-4">
-                                <div className="row">
-                                    <div className="col-md-8">
-                                        <FormControl componentClass="select" placeholder="Question Type" onChange={this.updateType}>
-                                            {_.map(this.props.question_types, (t,i) => <option key={i} value={i}>{t}</option>)}
-                                        </FormControl>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <Checkbox>
-                                            Required
-                                        </Checkbox>
-                                    </div>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <ButtonToolbar>
+                                <Button bsStyle="default" data-duplicate bsSize="small" onClick={this.duplicate}>
+                                    <i data-duplicate className="fa fa-files-o duplicate-ctrl"></i>
+                                </Button>
+                                <Button bsStyle="default" bsSize="small" onClick={this.remove}>
+                                    <i className="fa fa-trash"></i>
+                                </Button>
+                            </ButtonToolbar>
+                        </div>
+                        <div className="col-md-4 col-md-offset-4">
+                            <div className="row">
+                                <div className="col-md-8">
+                                    <FormControl defaultValue={this.state.question.type} componentClass="select" placeholder="Question Type" onChange={this.updateType}>
+                                        {_.map(this.props.question_types, (t,i) => <option key={i} value={i}>{t}</option>)}
+                                    </FormControl>
+                                </div>
+                                <div className="col-md-4">
+                                    <Checkbox name="isRequired" defaultChecked={this.state.question.is_required} onChange={this.updateIsRequired}>
+                                        Required
+                                    </Checkbox>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         );          
