@@ -12,30 +12,44 @@ DnA Surveys
 
 | Vendor | Version | Link(s) |
 | - | - | - |
-| Node.js | 7.8.0 | [ Install Guide ](https://nodejs.org/en/download/package-manager/) |
-| npm | 4.2.0 | [ Install Guide ](https://docs.npmjs.com/getting-started/installing-node) |
 | Docker CE | 17.03.1-ce | [ Install Guide(Step 1) ](https://docs.docker.com/engine/installation/#docker-editions) <br /> [ Install Guide(Step 2) ](https://docs.docker.com/engine/installation/linux/linux-postinstall/) |
 | Docker Compose | 1.12.0 | [ Install Guide ](https://docs.docker.com/compose/install/) |
 
-## Install
+### Install
+
+## Dev Setup
 ```sh
 > git clone git@github.com:illuminateeducation/surveys.git surveys
 > cd surveys
-> composer install
-> npm install
-> cp .env.example .env 
-> php artisan key:generate
-> php artisan config:cache
+> make dev-init
+```
+
+## Live Setup
+```sh
+> git clone git@github.com:illuminateeducation/surveys.git surveys
+> cd surveys
+> (Load app .env file, see .env.dev for example. Make sure APP_KEY exists.) 
+> make init
+```
+
+## Run Nginx, PHP-FPM, MongoDB Containers
+```sh
 > make network
+> (Update docker-compose.override.yml for tweaks, see docker-compose.override.yml.dev for example)
 > make compose
 ```
-or
+
+### Workspace Docker Container
+ * Contains tools like nodejs, npm, yarn, composer
+
+## Connect to workspace
 ```sh
-> git clone git@github.com:illuminateeducation/surveys.git surveys
-> cd surveys
-> make dep
-> make network
-> make compose
+> make dev-bash
+```
+
+## Run composer
+```sh
+> make composer
 ```
 
 ### Conventions
