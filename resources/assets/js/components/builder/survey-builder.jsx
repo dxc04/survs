@@ -126,7 +126,7 @@ export default class SurveyBuilder extends Component {
 
     buildQuestions () {
         return this.state.survey.questions.map((question, index) => 
-                <Question 
+            <Question 
                 key={question.id}
                 id={question.id}
                 label={'Q'+(index+1)}
@@ -138,8 +138,8 @@ export default class SurveyBuilder extends Component {
                 }}
                 question={question}
                 question_types = {this.props.question_types}
-                />
-                );
+            />
+        );
     }
 
     render () {
