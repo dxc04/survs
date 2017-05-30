@@ -34,3 +34,11 @@ services:
         
   mongo:
     image: mongo:latest
+
+  workspace:
+    build:
+      context: ./docker/workspace
+      dockerfile: Dockerfile     
+    volumes_from:
+      - app
+   

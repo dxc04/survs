@@ -1,13 +1,7 @@
 ## Override configuration for development environment
 version: "2"
-services:            
-  workspace:
-    build:
-      context: ./docker/workspace
-      dockerfile: Dockerfile     
-    volumes_from:
-      - app
 
+services:
   php:
     build:
       args:
