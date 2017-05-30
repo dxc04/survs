@@ -29,7 +29,7 @@ export default class SurveyBuilder extends Component {
     save () {
         this.api.save(this.state.survey);
     }
-    
+
     onUpdate (data) {
         this.setState(function(prevState, props) {
             prevState.survey.title = data.title;
