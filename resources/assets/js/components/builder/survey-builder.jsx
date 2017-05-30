@@ -54,6 +54,7 @@ export default class SurveyBuilder extends Component {
                 type: 'multiple_choice',
                 active: true,
                 question: '',
+		is_required: false,
                 details: {
                     options: [
                         'Option 1',

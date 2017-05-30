@@ -7,10 +7,12 @@ export default class TrueOrFalse extends Component {
         super(props);    
         this.state = {
             question_details : {
-                options: [
+                options: _.isEmpty(this.props.details.options)
+		? [
                     'True',
                     'False'
                 ]
+		: this.props.details.options
             }
         }
 
@@ -30,10 +32,9 @@ export default class TrueOrFalse extends Component {
             return null;
         }
         this.setState(function(prevState, props) {
-            prevState.question_details.options[target.name] = new_val;
+            prevState.question_details.options[target.dataset.option_index] = new_val;
             return {question_details: prevState.question_details};
         });
-
         this.update();
     }
 
@@ -42,9 +43,10 @@ export default class TrueOrFalse extends Component {
             <div className="options-container">
                 <Radio disabled>
                     <FormControl
-                        type="text"
+                        data-option_index="0"
+			type="text"
                         name="option_1"
-                        defaultValue="True"
+                        defaultValue={this.state.question_details.options[0]}
                         bsClass="form-control"
                         onBlur={this.updateOption}
                         onKeyPress={this.updateOption}
@@ -52,9 +54,10 @@ export default class TrueOrFalse extends Component {
                 </Radio>
                 <Radio disabled>
                     <FormControl
-                        type="text"
+                        data-option_index="1"
+			type="text"
                         name="option_2"
-                        defaultValue="False"
+                        defaultValue={this.state.question_details.options[1]}
                         bsClass="form-control"
                         onBlur={this.updateOption}
                         onKeyPress={this.updateOption}

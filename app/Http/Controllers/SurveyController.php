@@ -13,6 +13,7 @@ class SurveyController extends Controller
             'id' => 'new',
             'title' => 'Untitled Survey',
             'description' => '',
+	    'is_required' => false,
             'questions' => [
                 [
                     'id' => 'question_1',

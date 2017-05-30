@@ -29,6 +29,7 @@ export default class Question extends Component {
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDetails = this.updateDetails.bind(this);
         this.updateType = this.updateType.bind(this);
+	this.updateIsRequired = this.updateIsRequired.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -89,6 +90,15 @@ export default class Question extends Component {
         this.update();
     }
 
+    updateIsRequired (event) {
+    	const target = event.target;
+	this.setState(function(prevState, props) {
+	    prevState.question.is_required = target.checked;
+            return {question: prevState.question}
+	});
+	this.update();
+    }
+
     template () {
         var question = this.props.question;
         switch (question.type) {
@@ -97,7 +107,7 @@ export default class Question extends Component {
             case 'checkboxes' :
                 return  <Checkboxes details={question.details} actions={{update: this.updateDetails}}/>; 
             case 'true_or_false' : 
-                return <TrueOrFalse details={{}} actions={{update: this.updateDetails}} />;
+                return <TrueOrFalse details={question.details} actions={{update: this.updateDetails}} />;
             case 'short_answer' :
                 return <ShortAnswer />; 
             case 'paragraph' :
@@ -111,7 +121,8 @@ export default class Question extends Component {
 
     render () {
         const panel_class = 'panel panel-default ' + (this.props.question.active ? 'panel-active' : ''); 
-        return (
+
+	return (
             <div ref={this.props.question.id} className={panel_class} onClick={this.active}>
                 <div className="panel-body">
                     <div className="pull-right question-number">{this.props.label}</div>
@@ -147,7 +158,7 @@ export default class Question extends Component {
                                         </FormControl>
                                     </div>
                                     <div className="col-md-4">
-                                        <Checkbox>
+                                        <Checkbox name="isRequired" defaultChecked={this.state.question.is_required} onChange={this.updateIsRequired}>
                                             Required
                                         </Checkbox>
                                     </div>
