@@ -17,14 +17,14 @@ DnA Surveys
 
 ### Install
 
-## Dev Setup
+#### Dev Setup
 ```sh
 > git clone git@github.com:illuminateeducation/surveys.git surveys
 > cd surveys
 > make dev-init
 ```
 
-## Live Setup
+#### Live Setup
 ```sh
 > git clone git@github.com:illuminateeducation/surveys.git surveys
 > cd surveys
@@ -32,22 +32,22 @@ DnA Surveys
 > make init
 ```
 
-## Run Nginx, PHP-FPM, MongoDB Containers
+#### Run Nginx, PHP-FPM, MongoDB Containers
 ```sh
 > make network
 > (Update docker-compose.override.yml for tweaks, see docker-compose.override.yml.dev for example)
 > make compose
 ```
 
-### Workspace Docker Container
+#### Workspace Docker Container
  * Contains tools like nodejs, npm, yarn, composer
 
-## Connect to workspace
+#### Connect to workspace
 ```sh
 > make dev-bash
 ```
 
-## Run composer
+#### Run composer
 ```sh
 > make composer
 ```
