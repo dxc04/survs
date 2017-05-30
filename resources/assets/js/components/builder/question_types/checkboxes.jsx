@@ -9,10 +9,10 @@ export default class Checkboxes extends Component {
         this.state = {
             question_details : {
                 options: _.isEmpty(this.props.details.options) 
-                    ?  [
-                    'Checkbox 1',
-                    'Checkbox 2',
-                    'Checkbox 3'
+                    ? [
+                        'Checkbox 1',
+                        'Checkbox 2',
+                        'Checkbox 3'
                     ]
                     : this.props.details.options
             }
@@ -76,14 +76,14 @@ export default class Checkboxes extends Component {
                 <FormControl
                     type="text"
                     name={ 'option-' + index + '-label'}
-            data-option_index={index}
-            defaultValue={label}
+                    data-option_index={index}
+                    defaultValue={label}
                     bsClass="form-control"
-            onBlur={this.updateOption}
-            onKeyPress={this.updateOption}
+                    onBlur={this.updateOption}
+                    onKeyPress={this.updateOption}
                 />
                 <Button value={index} bsStyle="link" bsClass="btn btn-link link-circle" onClick={this.removeOption}>
-                X
+                    X
                 </Button>
             </Checkbox>
         );

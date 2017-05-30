@@ -9,10 +9,10 @@ export default class MultipleChoice extends Component {
         this.state = {
             question_details : {
                 options: _.isEmpty(this.props.details.options) 
-                    ?  [
-                    'Option 1',
-                    'Option 2',
-                    'Option 3'
+                    ? [
+                        'Option 1',
+                        'Option 2',
+                        'Option 3'
                     ]
                     : this.props.details.options
             }

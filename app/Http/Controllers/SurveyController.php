@@ -13,7 +13,7 @@ class SurveyController extends Controller
             'id' => 'new',
             'title' => 'Untitled Survey',
             'description' => '',
-	        'is_required' => false,
+            'is_required' => false,
             'questions' => [
                 [
                     'id' => 'question_1',
@@ -37,7 +37,7 @@ class SurveyController extends Controller
             'true_or_false' => 'True or False',
             'short_answer' => 'Short Answer',
             'paragraph' => 'Paragraph',
-	        'scale' => 'Scale'
+            'scale' => 'Scale'
         ];
 
         JavaScript::put([

@@ -9,8 +9,8 @@ export default class TrueOrFalse extends Component {
             question_details : {
                 options: _.isEmpty(this.props.details.options)
                     ? [
-                    'True',
-                    'False'
+                        'True',
+                        'False'
                     ]
                     : this.props.details.options
             }

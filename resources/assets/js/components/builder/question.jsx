@@ -33,12 +33,6 @@ export default class Question extends Component {
         this.updateIsRequired = this.updateIsRequired.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.question.type !== prevState.question.type) {
-            this.update();
-        }
-    }
-
     update () {
         this.props.actions.update(this.props.id, this.state.question);
     }
