@@ -11,6 +11,7 @@ import Checkboxes from './question_types/checkboxes';
 import TrueOrFalse from './question_types/true-or-false';
 import ShortAnswer from './question_types/short-answer';
 import Paragraph from './question_types/paragraph';
+import Scale from './question_types/scale';
 
 export default class Question extends Component {
     constructor (props) {
@@ -30,8 +31,14 @@ export default class Question extends Component {
         this.updateType = this.updateType.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.question.type !== prevState.question.type) {
+	    this.update();
+        }
+    }
+
     update () {
-        this.props.actions.update(this.props.id, this.state.question);
+	this.props.actions.update(this.props.id, this.state.question);
     }
 
     duplicate () {
@@ -53,9 +60,9 @@ export default class Question extends Component {
         const target = event.target;
         this.setState(function(prevState, props) {
             prevState.question.type = target.value;
-            return {question: prevState.question};
+            prevState.question.details = [];
+	    return {question: prevState.question};
         });
-
         this.update();
     } 
 
@@ -75,11 +82,10 @@ export default class Question extends Component {
     }
 
     updateDetails (question_details) {
-        this.setState(function(prevState, props) {
+	this.setState(function(prevState, props) {
             prevState.question.details = question_details;
-            return {question: prevState.question};
+	    return {question: prevState.question};
         });
-
         this.update();
     }
 
@@ -96,6 +102,8 @@ export default class Question extends Component {
                 return <ShortAnswer />; 
             case 'paragraph' :
                 return <Paragraph />;
+            case 'scale' :
+		return <Scale details={question.details} actions={{update: this.updateDetails}} />;
             default :
                 return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
         }
@@ -134,7 +142,7 @@ export default class Question extends Component {
                             <div className="col-md-4 col-md-offset-4">
                                 <div className="row">
                                     <div className="col-md-8">
-                                        <FormControl componentClass="select" placeholder="Question Type" onChange={this.updateType}>
+                                        <FormControl defaultValue={this.state.question.type} componentClass="select" placeholder="Question Type" onChange={this.updateType}>
                                             {_.map(this.props.question_types, (t,i) => <option key={i} value={i}>{t}</option>)}
                                         </FormControl>
                                     </div>

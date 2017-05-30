@@ -19,7 +19,8 @@ export default class MultipleChoice extends Component {
         }
 
         this.update = this.update.bind(this);
-        this.addOption = this.addOption.bind(this);
+ 	this.updateOption = this.updateOption.bind(this);
+	this.addOption = this.addOption.bind(this);
         this.removeOption = this.removeOption.bind(this);
     }
 
@@ -44,6 +45,21 @@ export default class MultipleChoice extends Component {
         this.update();
     }
 
+    updateOption (event) {
+    	const target = event.target;
+        const new_val = target.value;
+
+        if ((event.type == 'blur' && _.isEmpty(new_val)) || (event.type == 'keypress' && event.charCode!=13)) {
+            return null;
+        }
+        this.setState(function(prevState, props) {
+	    prevState.question_details.options[target.dataset.option_index] = new_val;
+            return {question_details: prevState.question_details};
+        });
+
+        this.update();
+    }
+
     removeOption (event) {
         const target = event.target;
         this.setState(function(prevState, props) {
@@ -58,10 +74,13 @@ export default class MultipleChoice extends Component {
         const options = this.state.question_details.options.map((label, index) => 
             <Radio key={index} disabled>
                 <FormControl
-                    type="text"
+                    data-option_index={index}
+		    type="text"
                     name={ 'option-' + index + '-label'}
                     defaultValue={label}
                     bsClass="form-control"
+		    onBlur={this.updateOption}
+                    onKeyPress={this.updateOption}
                 />
                 <Button value={index} bsStyle="link" bsClass="btn btn-link link-circle" onClick={this.removeOption}>
                 X
