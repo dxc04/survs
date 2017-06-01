@@ -1,5 +1,9 @@
 FROM laradock/workspace:1.8-71
 
+# Update & Upgrade
+RUN apt-get update \
+    && apt-get upgrade -y
+
 ##################
 # Non-Root User: #
 ##################
@@ -25,6 +29,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #####################################
 # Composer:
 #####################################
+
+RUN composer self-update
 
 # Add the composer.json
 COPY ./composer.json /home/illuminator/.composer/composer.json
