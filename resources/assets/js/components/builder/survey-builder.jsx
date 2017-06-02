@@ -23,6 +23,7 @@ export default class SurveyBuilder extends Component {
         this.onDuplicateQuestion = this.onDuplicateQuestion.bind(this);
         this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
         this.onActiveQuestion = this.onActiveQuestion.bind(this);
+        this.onMoveQuestion = this.onMoveQuestion.bind(this);
         this.onUpdateQuestionType = this.onUpdateQuestionType.bind(this);
     }
 
@@ -46,7 +47,7 @@ export default class SurveyBuilder extends Component {
             prevState.survey.questions.push({
                 id: new_id,
                 type: 'multiple_choice',
-                active: true,
+                order: _.size(prevState.survey.questions),
                 question: '',
                 is_required: false,
                 details: {
@@ -89,16 +90,26 @@ export default class SurveyBuilder extends Component {
 
     onDuplicateQuestion (id) {
         const question = _.find(this.state.survey.questions, ['id', id]);
-        const index = _.findIndex(this.state.survey.questions, ['id', id]) + 1;
+        const index = _.findIndex(this.state.survey.questions, ['id', id]);
         const dup_question = _.clone(question);
         dup_question.id = _.uniqueId('new_question_');
 
-        this.setState(function(prevState, props) {
-            const questions = prevState.survey.questions;
-            questions.splice(index, 0, dup_question);
-            prevState.survey.questions = questions;
+        const new_questions = [];
+        _.forEach(this.state.survey.questions, function(value, key) {
+            
+            value.order = _.size(new_questions) + 1; // none zero-base ordering
+            new_questions.push(value);
+                console.log(key, index);
+            if (index == key) {
+                dup_question.order = _.size(new_questions) + 1; // none zero-base ordering
+                new_questions.push(dup_question);
+            }
+        });
 
-            return {survey : prevState.survey};
+
+        this.setState(function(prevState, props) {
+            prevState.survey.questions = new_questions;
+            return {survey: prevState.survey};
         });
 
         this.onActiveQuestion(dup_question.id);
@@ -113,9 +124,34 @@ export default class SurveyBuilder extends Component {
         });
     }
 
-    onUpdateQuestionType (id, value) {
+    onMoveQuestion (id, move_to_index) {
+        const index = _.findIndex(this.state.survey.questions, ['id', id]);
+        const question = _.find(this.state.survey.questions, ['id', id]);
+        const new_questions = [];
+
+        _.forEach(this.state.survey.questions, function(value, key) {
+            if (key == move_to_index) {
+                question.order = _.size(new_questions) + 1; // none zero-base ordering
+                new_questions.push(question);
+            }
+            
+            if (index != key) {
+                value.order = _.size(new_questions) + 1; // none zero-base ordering
+                new_questions.push(value);
+            }
+        });
+
         this.setState(function(prevState, props) {
-            const question = _.find(prevState.survey.questions, ['id', id]);
+            prevState.survey.questions = new_questions;
+            return {survey: prevState.survey};
+        });
+
+        console.log(this.state.survey);
+    }
+
+    onUpdateQuestionType (id, value) {
+        const question = _.find(prevState.survey.questions, ['id', id]);
+        this.setState(function(prevState, props) {
             question.type = value;
             return {survey: prevState.survey};
         });
@@ -124,17 +160,19 @@ export default class SurveyBuilder extends Component {
     buildQuestions () {
         return this.state.survey.questions.map((question, index) => 
             <Question 
-                key={question.id}
+                key={index}
                 id={question.id}
-                label={'Q'+(index+1)}
+                num={index}
                 actions={{
                     remove: this.onRemoveQuestion,
                     duplicate: this.onDuplicateQuestion,
                     active: this.onActiveQuestion,
-                    update: this.onUpdateQuestion
+                    update: this.onUpdateQuestion,
+                    move: this.onMoveQuestion
                 }}
                 question={question}
                 question_types={this.props.question_types}
+                num_questions={_.size(this.props.survey.questions)}
                 is_active={this.state.survey.active_question == question.id}
             />
         );

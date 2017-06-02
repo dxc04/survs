@@ -5,6 +5,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Button from 'react-bootstrap/lib/Button';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
+import Dropdown from 'react-bootstrap/lib/Dropdown';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 import MultipleChoice from './question_types/multiple-choice';
 import Checkboxes from './question_types/checkboxes';
@@ -27,6 +29,7 @@ export default class Question extends Component {
         this.remove = this.remove.bind(this);
         this.duplicate = this.duplicate.bind(this);
         this.active = this.active.bind(this);
+        this.move = this.move.bind(this);
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDetails = this.updateDetails.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -50,6 +53,10 @@ export default class Question extends Component {
             return null;    
         }
         this.props.actions.active(this.props.id);    
+    }
+
+    move (index) {
+        this.props.actions.move(this.props.id, index)
     }
 
     updateType (event) {
@@ -114,13 +121,27 @@ export default class Question extends Component {
         }
     }
 
+
     render () {
         const panel_class = 'panel panel-default ' + (this.props.is_active ? 'panel-active' : ''); 
+        const label = 'Q' + (this.props.num + 1);
+        const nums = _.range(1, this.props.num_questions + 1);
+        _.pullAt(nums, this.props.num);
+        const move_to = this.props.num_questions > 1
+                    ? <Dropdown id="question-move-to">
+                        <Dropdown.Toggle className="btn-sm" alt="Move question to">
+                           <i className="fa fa-arrows"></i> 
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="move-to-menu">
+                            {_.map(nums, (t, i) => <MenuItem key={i} eventKey={t-1} onSelect={this.move}>{'Q'+t}</MenuItem> )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    : null;
 
 	    return (
             <div ref={this.props.question.id} className={panel_class} onClick={this.active}>
                 <div className="panel-body">
-                    <div className="pull-right question-number">{this.props.label}</div>
+                    <div className="pull-right question-number">{label}</div>
                     <FormControl
                         type="text"
                         name="question"
@@ -143,6 +164,7 @@ export default class Question extends Component {
                                 <Button bsStyle="default" bsSize="small" onClick={this.remove}>
                                     <i className="fa fa-trash"></i>
                                 </Button>
+                                {move_to}
                             </ButtonToolbar>
                         </div>
                         <div className="col-md-4 col-md-offset-4">
