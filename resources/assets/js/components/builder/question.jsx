@@ -115,7 +115,7 @@ export default class Question extends Component {
     }
 
     render () {
-        const panel_class = 'panel panel-default ' + (this.props.question.active ? 'panel-active' : ''); 
+        const panel_class = 'panel panel-default ' + (this.props.is_active ? 'panel-active' : ''); 
 
 	    return (
             <div ref={this.props.question.id} className={panel_class} onClick={this.active}>

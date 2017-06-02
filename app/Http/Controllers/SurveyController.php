@@ -14,11 +14,11 @@ class SurveyController extends Controller
             'title' => 'Untitled Survey',
             'description' => '',
             'is_required' => false,
+            'active_question' => 'question_1',
             'questions' => [
                 [
                     'id' => 'question_1',
                     'type' => 'multiple_choice',
-                    'active' => true,
                     'question' => 'What is your favorite pet?',
                     'details' => [
                         'options' => [

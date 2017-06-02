@@ -108,10 +108,7 @@ export default class SurveyBuilder extends Component {
 
     onActiveQuestion (id) {
         this.setState(function(prevState, props) {
-            _.each(prevState.survey.questions, (value, key) => {
-                prevState.survey.questions[key].active = (value.id == id);   
-            });
-
+            prevState.survey.active_question = id;
             return {survey: prevState.survey};
         });
     }
@@ -137,7 +134,8 @@ export default class SurveyBuilder extends Component {
                     update: this.onUpdateQuestion
                 }}
                 question={question}
-                question_types = {this.props.question_types}
+                question_types={this.props.question_types}
+                is_active={this.state.survey.active_question == question.id}
             />
         );
     }
