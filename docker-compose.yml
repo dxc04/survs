@@ -34,7 +34,11 @@ services:
         
   mongo:
     image: mongo:latest
-
+    command:
+      - mongod 
+      - --storageEngine
+      - wiredTiger
+        
   workspace:
     build:
       context: ./docker/workspace

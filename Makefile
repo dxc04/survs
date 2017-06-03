@@ -36,6 +36,9 @@ cc:
 bash:
 	docker-compose -p surveys exec php /bin/bash
 
+bash-mongo:
+	docker-compose -p surveys exec mongo /bin/bash
+
 network:
 	docker network create $(NS)
 
@@ -50,12 +53,11 @@ push:
 	docker push quay.io/$(NS)/$(REPO):$(BRANCH)
 
 compose:
-	docker-compose -p=surveys up --build --force-recreate app mongo php nginx
+	docker-compose -p surveys up -d --build --force-recreate
 
 composedie:
-	docker-compose -p surveys stop app mongo php nginx
-	docker-compose -p surveys rm app mongo php nginx
-
+	docker-compose -p surveys rm -s
+	
 rebuild: composedie compose
 
 shell:
@@ -73,7 +75,7 @@ stop:
 rm:
 	docker rm $(NAME)-$(INSTANCE)
 
-: build
+release: build
 	make push -e VERSION=$(VERSION)
 
 default: build
@@ -98,10 +100,36 @@ dev-dep: composer
 dev-bash:
 	docker-compose -p surveys exec --user illuminator workspace /bin/bash
 
+dev-mongo:
+	docker-compose -p surveys exec mongo mongo admin
+
 compose-workspace:
-	docker-compose -p=surveys up -d --build --force-recreate workspace
+	docker-compose -p surveys up -d --build --force-recreate workspace
 
 composedie-workspace:
-	docker-compose -p surveys stop workspace
-	docker-compose -p surveys rm workspace
+	docker-compose -p surveys rm -s workspace
+
+compose-app:
+	docker-compose -p surveys up -d --build --force-recreate app
+
+composedie-app:
+	docker-compose -p surveys rm -s app
+
+compose-mongo:
+	docker-compose -p surveys up -d --build --force-recreate mongo --storageEngine wiredTiger
+
+composedie-mongo:
+	docker-compose -p surveys rm -s mongo
+
+compose-php:
+	docker-compose -p surveys up -d --build --force-recreate php
+
+composedie-php:
+	docker-compose -p surveys rm -s php
+
+compose-nginx:
+	docker-compose -p=surveys up -d --build --force-recreate nginx
+
+composedie-nginx:
+	docker-compose -p surveys rm -s nginx
 

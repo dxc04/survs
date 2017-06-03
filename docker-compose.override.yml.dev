@@ -1,6 +1,5 @@
 ## Override configuration for development environment
 version: "2"
-
 services:
   php:
     build:
@@ -14,3 +13,9 @@ services:
     ports:
       - "80:80"
 
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "ENTER_DB_USERNAME"
+      MONGO_INITDB_ROOT_PASSWORD: "ENTER_DB_PASSWORD"
+    ports:
+      - "27017:27017"
