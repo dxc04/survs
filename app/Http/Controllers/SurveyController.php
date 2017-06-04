@@ -19,6 +19,7 @@ class SurveyController extends Controller
                 [
                     'id' => 'question_1',
                     'type' => 'multiple_choice',
+                    'order' => 0,
                     'question' => 'What is your favorite pet?',
                     'details' => [
                         'options' => [

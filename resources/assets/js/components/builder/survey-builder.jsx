@@ -47,8 +47,8 @@ export default class SurveyBuilder extends Component {
             prevState.survey.questions.push({
                 id: new_id,
                 type: 'multiple_choice',
-                order: _.size(prevState.survey.questions),
                 question: '',
+                order: _.maxBy(prevState.survey.questions, 'order')['order'] + 1,
                 is_required: false,
                 details: {
                     options: [
@@ -97,11 +97,10 @@ export default class SurveyBuilder extends Component {
         const new_questions = [];
         _.forEach(this.state.survey.questions, function(value, key) {
             
-            value.order = _.size(new_questions) + 1; // none zero-base ordering
+            value.order = _.size(new_questions) - 1; // zero-base ordering
             new_questions.push(value);
-                console.log(key, index);
             if (index == key) {
-                dup_question.order = _.size(new_questions) + 1; // none zero-base ordering
+                dup_question.order = _.size(new_questions) - 1; // zero-base ordering
                 new_questions.push(dup_question);
             }
         });
@@ -124,29 +123,47 @@ export default class SurveyBuilder extends Component {
         });
     }
 
-    onMoveQuestion (id, move_to_index) {
-        const index = _.findIndex(this.state.survey.questions, ['id', id]);
-        const question = _.find(this.state.survey.questions, ['id', id]);
-        const new_questions = [];
+    onMoveQuestion (from_order, to_order) {
+        const ordered_questions = [];
+        const sorted_questions = _.sortBy(this.state.survey.questions, 'order');
 
-        _.forEach(this.state.survey.questions, function(value, key) {
-            if (key == move_to_index) {
-                question.order = _.size(new_questions) + 1; // none zero-base ordering
-                new_questions.push(question);
-            }
-            
-            if (index != key) {
-                value.order = _.size(new_questions) + 1; // none zero-base ordering
-                new_questions.push(value);
-            }
-        });
+        if (to_order > from_order) {
+            var before_from_order_count = 0;
+            _.forEach(sorted_questions, function(val, index) {
+                if (from_order == index) {
+                    val.order = to_order;
+                }
+                else {
+                    if (from_order > index) {
+                        val.order = index;
+                        before_from_order_count++;
+                    }
+                    else {
+                        val.order = (to_order >= index) ? before_from_order_count++ : before_from_order_count++ + 1;
+                    }
+                }
+                ordered_questions.push(val);
+            });
+        }
+        else {
+            var before_to_order_count = 0;
+            _.forEach(sorted_questions, function(val, index) {
+                if (from_order == index) {
+                    val.order = to_order;
+                }
+                else {
+                    val.order = (to_order > index) ? before_to_order_count++ : before_to_order_count++ + 1;
+                }
+                ordered_questions.push(val);
+            });
+        }
 
         this.setState(function(prevState, props) {
-            prevState.survey.questions = new_questions;
+            prevState.survey.questions = ordered_questions;
             return {survey: prevState.survey};
         });
 
-        console.log(this.state.survey);
+        this.save();
     }
 
     onUpdateQuestionType (id, value) {
@@ -158,9 +175,10 @@ export default class SurveyBuilder extends Component {
     }
 
     buildQuestions () {
-        return this.state.survey.questions.map((question, index) => 
+        const sorted = _.sortBy(this.state.survey.questions, 'order'); 
+        return sorted.map((question, index) => 
             <Question 
-                key={index}
+                key={question.id}
                 id={question.id}
                 num={index}
                 actions={{

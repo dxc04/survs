@@ -56,7 +56,7 @@ export default class Question extends Component {
     }
 
     move (index) {
-        this.props.actions.move(this.props.id, index)
+        this.props.actions.move(this.props.num, index);
     }
 
     updateType (event) {
@@ -120,7 +120,6 @@ export default class Question extends Component {
                 return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
         }
     }
-
 
     render () {
         const panel_class = 'panel panel-default ' + (this.props.is_active ? 'panel-active' : ''); 
