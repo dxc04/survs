@@ -1,0 +1,21 @@
+## Override configuration for development environment
+version: "2"
+services:
+  php:
+    build:
+      args:
+        - BUILD_ENV=dev
+    depends_on:
+      - mongo
+      - workspace
+
+  nginx:
+    ports:
+      - "80:80"
+
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "ENTER_DB_USERNAME"
+      MONGO_INITDB_ROOT_PASSWORD: "ENTER_DB_PASSWORD"
+    ports:
+      - "27017:27017"

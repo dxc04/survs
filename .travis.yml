@@ -6,7 +6,7 @@ php: 7.1
 install:
 - composer install --ignore-platform-reqs --no-scripts
 - docker run --rm --interactive --tty --volume $(pwd):/src mkenney/npm:debian npm install
-- docker build -t $TRAVIS_REPO_SLUG .
+- docker build -f ./docker/php-fpm/Dockerfile -t $TRAVIS_REPO_SLUG .
 script:
 - cp .env.example .env
 - php artisan key:generate
