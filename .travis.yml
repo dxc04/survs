@@ -5,7 +5,8 @@ language: php
 php: 7.1
 install:
 - composer install --ignore-platform-reqs --no-scripts
-- docker run --rm --interactive --tty --volume $(pwd):/src mkenney/npm:debian npm install
+- docker run --rm --interactive --tty --volume $(pwd):/src mkenney/npm:debian yarn install
+- docker run --rm --interactive --tty --volume $(pwd):/src mkenney/npm:debian yarn run production
 - docker build -f ./docker/php-fpm/Dockerfile -t $TRAVIS_REPO_SLUG .
 script:
 - cp .env.example .env
