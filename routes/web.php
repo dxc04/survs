@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// @todo: add authentication filter
+Route::group(['prefix' => 'survey'], function() {
+    Route::get('create', 'SurveyController@create');
+    Route::get('publish/{survey_id}', 'SurveyController@publish');
+    Route::post('save', 'SurveyController@save');
+});

@@ -1,5 +1,7 @@
 const { mix } = require('laravel-mix');
 
+/* @todo: Basic configuration to run react, add styling and send request. We could still apply assets library from setup_assets_library branch*/
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,4 +14,31 @@ const { mix } = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   .sass('resources/assets/sass/app.scss', 'public/css')
+   .styles(
+       [
+           'resources/assets/css/bootstrap.min.css',
+           'resources/assets/css/survey.css',
+           'public/css/app.css'
+       ],
+       'public/css/main.css'
+   );
+
+/*
+ |--------------------------------------------------------------------------
+ | React Dependencies
+ |--------------------------------------------------------------------------
+ */
+mix.extract(['react', 'react-dom'], 'public/js/react.compiled.min.js');
+mix.react('resources/assets/js/build-survey-render.jsx', 'public/js/build-survey-render.js');
+mix.react('resources/assets/js/publish-survey-render.jsx', 'public/js/publish-survey-render.js');
+
+
+mix.scripts(
+    [
+        'public/js/manifest.js',
+        'public/js/react.compiled.min.js',
+        'public/js/app.js'
+    ],
+    'public/js/app.compiled.min.js'
+);
