@@ -64,7 +64,7 @@ export default class Settings extends Component {
                             <FormControl
                                 name="questions_per_page"
                                 componentClass="select"
-                                defaultValue={this.state.settings.page}
+                                defaultValue={this.state.settings.questions_per_page}
                                 className="scale-select left-element"
                                 onChange={this.update}
                             >
