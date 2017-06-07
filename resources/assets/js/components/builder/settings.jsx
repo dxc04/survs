@@ -40,7 +40,7 @@ export default class Settings extends Component {
 
     closeSettings() {
         this.setState(function (prevState, props) {
-            prevState.isShowingModal = false
+            prevState.isShowingModal = false;
         });
     }
 
