@@ -20,6 +20,7 @@ export default class Settings extends Component {
 
     updateSettings (event) {
         this.props.actions.updateSettings(this.state);
+        this.closeSettings();
     }
 
     update (event) {
@@ -46,7 +47,7 @@ export default class Settings extends Component {
     render () {
         return (
             <div>
-                <a className="btn btn-circle btn-lg" title="Settings" onClick={this.showSettings}>
+                <a className="btn btn-settings btn-circle btn-lg" title="Settings" onClick={this.showSettings}>
                     <i className="fa fa-cog" aria-hidden="true"></i>
                 </a>
                 <Modal
@@ -55,18 +56,16 @@ export default class Settings extends Component {
                     aria-labelledby="ModalHeader"
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title id='ModalHeader'>Settings</Modal.Title>
+                        <label className="modal-header-label">Settings</label>
                     </Modal.Header>
                     <Modal.Body>
-                        <div className="col-md-4">
-                            <div className="select-label">Questions per Page: </div>
-                        </div>
-                        <div className="col-md-4">
+                        <div className="form-inline">
+                            <label className="select-label">Questions per Page: </label>
                             <FormControl
                                 name="questions_per_page"
                                 componentClass="select"
                                 defaultValue={this.state.settings.page}
-                                className="scale-select"
+                                className="scale-select left-element"
                                 onChange={this.update}
                             >
                                 {_.map(_.range(1,11), (t,i) => 
@@ -76,7 +75,7 @@ export default class Settings extends Component {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button bsStyle="default" bsSize="small" onClick={this.updateSettings}>
+                        <Button bsStyle="primary" bsSize="small" onClick={this.updateSettings}>
                             Save
                         </Button>
                         <Button bsStyle="default" bsSize="small" onClick={this.closeSettings}>
