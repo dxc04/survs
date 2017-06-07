@@ -64,7 +64,7 @@ export default class MultipleChoice extends Component {
         const target = event.target;
         this.setState(function(prevState, props) {
             _.pullAt(prevState.question_details.options, target.value);
-            return {question_details: prevState.question_details.options};
+            return {question_details: prevState.question_details};
         });
 
         this.update();
@@ -72,7 +72,7 @@ export default class MultipleChoice extends Component {
 
     render () {
         const options = this.state.question_details.options.map((label, index) => 
-            <Radio key={index} disabled>
+            <Radio key={label + index} disabled>
                 <FormControl
                     data-option_index={index}
 		            type="text"
