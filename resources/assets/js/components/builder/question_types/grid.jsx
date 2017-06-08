@@ -68,7 +68,6 @@ export default class Grid extends Component {
             _.pullAt(prevState.question_details[target.dataset.detail], target.value);
             return {question_details: prevState.question_details};
         });
-
         this.update();
     }
 
