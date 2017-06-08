@@ -136,3 +136,20 @@
 .left-element {
     margin-left: 10px;
 }
+
+.grid-legend {
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.grid-row-label {
+    margin-left: 25px;
+}
+
+.grid-column-label {
+    margin-left: 10px;
+}
+
+.add-grid {
+    margin-left: 95px;
+}

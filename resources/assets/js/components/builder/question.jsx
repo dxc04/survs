@@ -14,7 +14,7 @@ import TrueOrFalse from './question_types/true-or-false';
 import ShortAnswer from './question_types/short-answer';
 import Paragraph from './question_types/paragraph';
 import Scale from './question_types/scale';
-
+import Grid from './question_types/grid';
 
 export default class Question extends Component {
     constructor (props) {
@@ -116,6 +116,8 @@ export default class Question extends Component {
                 return <Paragraph />;
             case 'scale' :
                 return <Scale details={question.details} actions={{update: this.updateDetails}} />;
+            case 'grid' :
+                return <Grid details={question.details} actions={{update: this.updateDetails}} />;
             default :
                 return <MultipleChoice details={question.details} actions={{update: this.updateDetails}}/>; 
         }

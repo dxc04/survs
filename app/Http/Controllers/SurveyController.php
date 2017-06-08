@@ -41,7 +41,8 @@ class SurveyController extends Controller
             'true_or_false' => 'True or False',
             'short_answer' => 'Short Answer',
             'paragraph' => 'Paragraph',
-            'scale' => 'Scale'
+            'scale' => 'Scale',
+            'grid' => 'Grid'
         ];
 
         JavaScript::put([
