@@ -25,7 +25,7 @@ export default class Checkboxes extends Component {
             if (target.checked) {
                 prevState.response.push(new_val);
             } else {
-                _.pullAt(prevState.response, new_val);
+                _.pull(prevState.response, _.toString(new_val));
             }
             return prevState;
         });

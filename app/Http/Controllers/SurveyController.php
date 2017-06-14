@@ -132,7 +132,7 @@ class SurveyController extends Controller
                     'id' => 'question_6',
                     'type' => 'paragraph',
                     'question' => 'What is the name of your pet',
-                    'is_required' => false,
+                    'is_required' => true,
                     'order' => 5,
                     'details' => [],
                 ],
@@ -140,7 +140,7 @@ class SurveyController extends Controller
                     'id' => 'question_7',
                     'type' => 'scale',
                     'question' => 'Test Scale Question Type',
-                    'is_required' => false,
+                    'is_required' => true,
                     'order' => 6,
                     'details' => [
                         'range' => [
