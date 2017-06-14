@@ -167,3 +167,23 @@
     color: #db4437;
     font-size: 13px;
 }
+
+.control-button {
+    margin-left: 5px;
+}
+
+.question-container {
+    margin-top: 10px;
+}
+
+.publish-row {
+    text-align: center;
+}
+
+.publish-row-label {
+    margin-top: 10px;
+}
+
+.question-container .DraftEditor-editorContainer {
+    min-height: 150px;
+}

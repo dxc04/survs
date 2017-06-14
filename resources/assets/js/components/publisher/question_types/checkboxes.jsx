@@ -45,7 +45,7 @@ export default class Checkboxes extends Component {
             </Checkbox>
         );
         return (
-            <div id={question.id}>
+            <div id={question.id} className="question-container">
                 {options}
             </div>
         );

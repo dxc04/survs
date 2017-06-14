@@ -39,18 +39,19 @@ export default class Grid extends Component {
     }
     
     renderRow (row_index, columns) {
-        const row = _.map(columns, (col_label,col_index) =>
-            <div key={col_label + col_index} className="col-sm-1">
-                <Radio
-                    name={row_index}
-                    onClick={this.updateResponse}
-                    data-row={row_index}
-                    data-col={col_index}
-                    defaultChecked={this.isSelected(row_index, [row_index,col_index])}
-                ></Radio>
-            </div>
+        return (
+            _.map(columns, (col_label,col_index) =>
+                <div key={col_label + col_index} className="col-sm-1">
+                    <Radio
+                        name={row_index}
+                        onClick={this.updateResponse}
+                        data-row={row_index}
+                        data-col={col_index}
+                        defaultChecked={this.isSelected(row_index, [row_index,col_index])}
+                    ></Radio>
+                </div>
+            )
         );
-        return row;
     }
 
     render () {
@@ -64,15 +65,15 @@ export default class Grid extends Component {
         );
         
         const rows = _.map(details.rows, (row_label,row_index) =>
-            <div key={row_label + row_index} className="row">
-                <div className="col-sm-1">{row_label}</div>
+            <div key={row_label + row_index} className="row publish-row">
+                <div className="col-sm-1 publish-row-label">{row_label}</div>
                 {this.renderRow(row_index, details.columns)}
             </div>
         );
         
         return (
-            <div id={question.id}>
-                <div className="row">
+            <div id={question.id} className="question-container">
+                <div className="row publish-row">
                     <div className="col-sm-1"></div>
                     {column_header}
                 </div>

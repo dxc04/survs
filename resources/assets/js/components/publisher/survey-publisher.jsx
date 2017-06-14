@@ -11,7 +11,7 @@ import Grid from './question_types/grid';
 export default class SurveyPublisher extends Component {
     constructor (props) {
         super(props);
-        this.pages = _.chunk(this.props.survey.questions, this.props.survey.settings.questions_per_page);
+        this.pages = _.chunk(_.sortBy(this.props.survey.questions, 'order'), this.props.survey.settings.questions_per_page);
         const page_number = 0;
         
         this.state = {
@@ -26,6 +26,7 @@ export default class SurveyPublisher extends Component {
         this.updateResponses = this.updateResponses.bind(this);
         this.renderRequired = this.renderRequired.bind(this);
         this.getRequiredResponseClass = this.getRequiredResponseClass.bind(this);
+        this.hasRequiredResponse = this.hasRequiredResponse.bind(this);
     }
 
     details (question) {
@@ -76,34 +77,39 @@ export default class SurveyPublisher extends Component {
         if (_.size(this.pages) == this.state.current_page_num + 1){
             return (
                 <div>
-                    <Button bsStyle="default" data-action="prev" onClick={this.onChangePage}>Previous</Button>
-                    <Button bsStyle="default">Submit</Button>
+                    <Button bsStyle="primary" data-action="prev" onClick={this.onChangePage}>Previous</Button>
+                    <Button bsStyle="primary control-button" >Submit</Button>
                 </div>
             );
         } else if (this.state.current_page_num > 0) {
             return (
                 <div>
-                    <Button bsStyle="default" data-action="prev" onClick={this.onChangePage}>Previous</Button>
-                    <Button bsStyle="default" data-action="next" onClick={this.onChangePage}>Next</Button>
+                    <Button bsStyle="primary" data-action="prev" onClick={this.onChangePage}>Previous</Button>
+                    <Button bsStyle="primary control-button" data-action="next" onClick={this.onChangePage}>Next</Button>
                 </div>
             );
         } else {
-            return (<Button bsStyle="default" data-action="next" onClick={this.onChangePage}>Next</Button>);
+            return (<Button bsStyle="primary" data-action="next" onClick={this.onChangePage}>Next</Button>);
         }
+    }
+
+    hasRequiredResponse () {
+        const responses = this.state.responses;
+        var response = false
+
+        this.state.current_page.map(function(question, index) {
+            if (question.is_required && _.isUndefined(responses[question.id])) {
+                response = true;
+            }
+        });
+        return response;
     }
 
     onChangePage (event) {
         const target = event.target;
         const add = target.dataset.action == 'prev' ? -1 : 1;
-        const responses = this.state.responses;
-        var required = false;
-        
-        this.state.current_page.map(function(question, index) {
-            if (question.is_required && _.isUndefined(responses[question.id])) {
-                required = true;
-            }
-        });
-        
+        const required = this.hasRequiredResponse() && target.dataset.action == 'next' ? true : false;
+
         if (required) {
             this.setState(function (prevState, props) {
                 prevState.response_required = true;

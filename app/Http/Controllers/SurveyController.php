@@ -60,7 +60,6 @@ class SurveyController extends Controller
             'id' => 'id',
             'title' => 'Untitled Survey',
             'description' => 'This is a survey.',
-            'active_question' => 'question_1',
             'settings' => [
                 'questions_per_page' => 5,
             ],

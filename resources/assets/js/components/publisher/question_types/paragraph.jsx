@@ -43,11 +43,13 @@ export default class Paragraph extends Component {
 
     render () {
         return (
-            <RichTextEditor
-                value={this.state.value}
-                onChange={this.onChange}
-                onBlur={this.updateResponse}
-            />
+            <div id={this.props.question.id} className="question-container">
+                <RichTextEditor
+                    value={this.state.value}
+                    onChange={this.onChange}
+                    onBlur={this.updateResponse}
+                />
+            </div>
         );
     }
 }

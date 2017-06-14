@@ -54,15 +54,15 @@ export default class Scale extends Component {
         );
         
         return (
-            <div id={question.id}>
-                <div className="row">
+            <div id={question.id} className="question-container">
+                <div className="row publish-row">
                     <div className="col-sm-1"></div>
                     {labels}
                 </div>
-                <div className="row">
-                    <div className="col-sm-1"><label>{details_range.min.label}</label></div>
+                <div className="row publish-row">
+                    <div className="col-sm-1 publish-row-label"><label>{details_range.min.label}</label></div>
                         {options}
-                    <div className="col-sm-1"><label>{details_range.max.label}</label></div>
+                    <div className="col-sm-1 publish-row-label"><label>{details_range.max.label}</label></div>
                 </div>
             </div>
         );

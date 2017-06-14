@@ -47,7 +47,7 @@ export default class MultipleChoice extends Component {
             </Radio>
         );
         return (
-            <div id={question.id}>
+            <div id={question.id} className="question-container">
                 {options}
             </div>
         );
