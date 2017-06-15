@@ -165,7 +165,7 @@ export default class SurveyPublisher extends Component {
         return (
             <form>
                 <div className="input-title-lg">{this.props.survey.title}</div>
-                <div>{this.props.survey.description}</div>
+                <div className="survey-description">{this.props.survey.description}</div>
                 {children}
                 {this.controls()}
             </form>

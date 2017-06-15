@@ -187,3 +187,17 @@
 .question-container .DraftEditor-editorContainer {
     min-height: 150px;
 }
+
+.survey-description {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.short-answer {
+    border: 1px solid #e5e5e5 !important;
+    margin-top: 30px;
+}
+
+#survey-questions .panel-body {
+    min-height: 150px;
+}

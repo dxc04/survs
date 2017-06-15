@@ -41,7 +41,7 @@ export default class ShortAnswer extends Component {
             <FormControl
                 type="textarea"
                 defaultValue={this.state.response}
-                bsClass="form-control"
+                bsClass="form-control short-answer"
                 onBlur={this.updateResponse}
                 onKeyPress={this.updateResponse}
             />
