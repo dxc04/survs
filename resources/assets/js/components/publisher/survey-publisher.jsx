@@ -78,14 +78,14 @@ export default class SurveyPublisher extends Component {
             return (
                 <div>
                     <Button bsStyle="primary" data-action="prev" onClick={this.onChangePage}>Previous</Button>
-                    <Button bsStyle="primary control-button" >Submit</Button>
+                    <Button bsStyle="primary" className="control-button">Submit</Button>
                 </div>
             );
         } else if (this.state.current_page_num > 0) {
             return (
                 <div>
                     <Button bsStyle="primary" data-action="prev" onClick={this.onChangePage}>Previous</Button>
-                    <Button bsStyle="primary control-button" data-action="next" onClick={this.onChangePage}>Next</Button>
+                    <Button bsStyle="primary" className="control-button" data-action="next" onClick={this.onChangePage}>Next</Button>
                 </div>
             );
         } else {
