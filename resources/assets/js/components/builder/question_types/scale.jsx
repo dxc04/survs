@@ -64,8 +64,8 @@ export default class Scale extends Component {
                     </div>
                     <div className="col-md-4">
                     <FormControl componentClass="select" defaultValue={range.max.value} onChange={this.updateValue} data-range_value="max" className="scale-select">
-                                {_.map(_.range(2,11), (t,i) => 
-                                <option key={t} value={t}>{t}</option>
+                        {_.map(_.range(2,11), (t,i) => 
+                            <option key={t} value={t}>{t}</option>
                         )}
                     </FormControl>
                     </div>

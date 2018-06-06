@@ -25,6 +25,7 @@ export default class SurveyBuilder extends Component {
         this.onActiveQuestion = this.onActiveQuestion.bind(this);
         this.onMoveQuestion = this.onMoveQuestion.bind(this);
         this.onUpdateQuestionType = this.onUpdateQuestionType.bind(this);
+        this.onUpdateSettings = this.onUpdateSettings.bind(this);
     }
 
     save () {
@@ -39,6 +40,15 @@ export default class SurveyBuilder extends Component {
         });
 
         this.save();
+    }
+
+    onUpdateSettings (data) {
+        this.setState(function(prevState, props) {
+            prevState.survey.settings = data.settings;
+            return {survey: prevState.survey};
+        });
+
+        this.save();       
     }
 
     onAddQuestion () {
@@ -199,7 +209,13 @@ export default class SurveyBuilder extends Component {
     render () {
         const children = this.buildQuestions();
         return (
-            <Survey actions={{addQuestion: this.onAddQuestion}} >
+            <Survey
+                settings={this.props.survey.settings}
+                actions={
+                    {addQuestion: this.onAddQuestion},
+                    {updateSettings: this.onUpdateSettings}
+                } 
+            >
                 <Information title={this.props.survey.title} description={this.props.survey.description} actions={{ update: this.onUpdate}}/>
                 <div id="survey-questions">
                     {children}

@@ -26,6 +26,15 @@
     border-radius: 35px;
 }
 
+.btn-settings {
+    background: #607d8b;
+    color: #fff;
+}
+
+.btn-settings:hover {
+    background-color: #6b8a99!important;
+    color: #fff;
+}
 /* link circle */
 .link-circle {
     width: 30px;
@@ -37,6 +46,19 @@
 
 .link-circle:hover, .link-circle:active:hover {
     border-radius: 50%;
+}
+
+/* modal window*/
+.modal-content {
+    border-radius: 6px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-footer {
+    border-top: 1px solid #e5e5e5;
 }
 
 /* custom styling */
@@ -52,7 +74,7 @@
     margin-top: -9.5em;
 }
 
-.input-title-lg {
+.input-title-lg, .modal-header-label, .close {
     font-size: 20px !important;
 }
 
@@ -104,4 +126,78 @@
 
 .move-to-menu.dropdown-menu>li>a {
     padding: 3px 14px;
+}
+
+.form-inline {
+    display: inline-block;
+    width: auto;
+}
+
+.left-element {
+    margin-left: 10px;
+}
+
+.grid-legend {
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.grid-row-label {
+    margin-left: 25px;
+}
+
+.grid-column-label {
+    margin-left: 10px;
+}
+
+.add-grid {
+    margin-left: 95px;
+}
+
+.survey-question {
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 20px;
+}
+
+.required-question {
+    background-color: #ffebee;
+}
+
+.required-label {
+    color: #db4437;
+    font-size: 13px;
+}
+
+.control-button {
+    margin-left: 5px;
+}
+
+.question-container {
+    margin-top: 10px;
+}
+
+.publish-row {
+    text-align: center;
+}
+
+.publish-row-label {
+    margin-top: 10px;
+}
+
+.question-container .DraftEditor-editorContainer {
+    min-height: 150px;
+}
+
+.survey-description {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.short-answer {
+    border: 1px solid #e5e5e5 !important;
+    margin-top: 30px;
+}
+
+#survey-questions .panel-body {
+    min-height: 150px;
 }

@@ -64,7 +64,7 @@ export default class Checkboxes extends Component {
         const target = event.target;
         this.setState(function(prevState, props) {
             _.pullAt(prevState.question_details.options, target.value);
-            return {question_details: prevState.question_details.options};
+            return {question_details: prevState.question_details};
         });
 
         this.update();
@@ -72,7 +72,7 @@ export default class Checkboxes extends Component {
 
     render () {
         const options = this.state.question_details.options.map((label, index) => 
-            <Checkbox key={index} disabled>
+            <Checkbox key={label + index} disabled>
                 <FormControl
                     type="text"
                     name={ 'option-' + index + '-label'}
