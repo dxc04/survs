@@ -211,10 +211,10 @@ export default class SurveyBuilder extends Component {
         return (
             <Survey
                 settings={this.props.survey.settings}
-                actions={
-                    {addQuestion: this.onAddQuestion},
-                    {updateSettings: this.onUpdateSettings}
-                } 
+                actions={{
+                    addQuestion: this.onAddQuestion,
+                    updateSettings: this.onUpdateSettings
+                }} 
             >
                 <Information title={this.props.survey.title} description={this.props.survey.description} actions={{ update: this.onUpdate}}/>
                 <div id="survey-questions">
